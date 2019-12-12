@@ -1,0 +1,123 @@
+<sos-admin-fablab-navigation></sos-admin-fablab-navigation>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-lg-6">
+      <h3>Scegli il giorno</h3>
+      <table class="table text-center calendar">
+        <thead>
+        <tr>
+          <th class="calendar-nav">
+            <button type="button" class="btn btn-sm btn-link" (click)="prevMonth()">&lang;</button>
+          </th>
+          <th colspan="5">
+            {{ monthStr[firstDayM] }} {{ firstDayY }}
+          </th>
+          <th class="calendar-nav">
+            <button type="button" class="btn btn-sm btn-link" (click)="nextMonth()">&rang;</button>
+          </th>
+        </tr>
+        <tr>
+          <td *ngFor="let dow of daysOfWeek">{{ dow }}</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let week of calendar">
+          <td *ngFor="let day of week" (click)="selectDay(day)"
+              [class.selected]="filtering.day === day"
+              [class.bg-danger]="filtering.day !== day && day != '' && monthReservations[day]">
+            {{ day }}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-12 col-lg-6">
+      <h3>Scegli l'orario</h3>
+      <table class="table hours">
+        <thead>
+        <tr>
+          <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let row of HOURS">
+          <td *ngFor="let h of row" (click)="selectHour(h)"
+              [class.selected]="filtering.hour === h">
+            {{ h }} - {{ h + 1 }}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-5 mb-2" *ngIf="sorting !== null">
+  <div class="col text-center font-weight-bold">
+    <span class="text-cyan">Ordina prenotazioni:</span> {{ sorting.display }}
+  </div>
+</div>
+
+<table class="table table-data m-0">
+  <thead>
+    <tr>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting && sorting.prop === 'userName'"
+                (click)="changeSorting('userName', 'nome utente')">&nbsp;</button>
+      </th>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting && sorting.prop === 'date'"
+                (click)="changeSorting('date', 'data')">&nbsp;</button>
+      </th>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting && sorting.prop === 'hour'"
+                (click)="changeSorting('hour', 'orario')">&nbsp;</button>
+      </th>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting && sorting.prop === 'userTel'"
+                (click)="changeSorting('userTel', 'telefono utente')">&nbsp;</button>
+      </th>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting && sorting.prop === 'operator'"
+                (click)="changeSorting('operator', 'con operatore')">&nbsp;</button>
+      </th>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting && sorting.prop === 'machineName'"
+                (click)="changeSorting('machineName', 'macchina')">&nbsp;</button>
+      </th>
+      <th><!-- delete --></th>
+    </tr>
+  <tbody>
+    <tr *ngFor="let r of filtered; let idx = index">
+      <td class="text-center">
+        <div>{{ r.userName }}</div>
+      </td>
+      <td class="text-center">
+        <div>{{ r.date | date:'shortDate' }}</div>
+      </td>
+      <td class="text-center">
+        <div>{{ r.hour }} - {{ r.hour + 1 }}</div>
+      </td>
+      <td class="text-center">
+        <div>{{ r.userTel }}</div>
+      </td>
+      <td class="table-col-small"><!-- operator --></td>
+      <td class="text-center">
+        <div>{{ r.machineName }}</div>
+      </td>
+      <td class="p-0 table-col-small">
+        <button type="button" class="btn btn-black w-100 h-100"
+                (click)="deleteReservation(idx)">
+          <i class="sos-icon skull"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,29 @@
+@import "../../tables";
+
+
+table tbody {
+  font-weight: bold;
+}
+
+.machine-detail-selector {
+  .btn-group-toggle {
+    .btn, .divider {
+      font-size: 1rem;
+      line-height: 1.2;
+    }
+    .btn {
+      border-bottom: 1px solid transparent;
+      &:hover, &.active {
+        color: black !important;
+        border-bottom: 1px solid black;
+        font-weight: bold;
+      }
+    }
+    .divider {
+      padding: 0 map_get($spacers, 1);
+      &:before {
+        content: '/';
+      }
+    }
+  }
+}

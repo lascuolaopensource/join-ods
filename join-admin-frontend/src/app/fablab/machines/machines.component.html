@@ -1,0 +1,410 @@
+<!--suppress HtmlFormInputWithoutLabel -->
+<sos-admin-fablab-navigation></sos-admin-fablab-navigation>
+
+<form (submit)="changeFilter()" class="search-form" autocomplete="off">
+  <div class="form-row">
+    <div class="col-12 col-md-10 form-group">
+      <label class="font-weight-bold" for="search-machine">Macchine</label>
+      <input class="form-control form-control-sm" name="search-machine" id="search-machine"
+             [(ngModel)]="filtering">
+    </div>
+    <div class="col-12 col-md-2 form-group">
+      <button type="submit" class="btn btn-black btn-sm btn-block">Cerca</button>
+    </div>
+  </div>
+</form>
+
+<div class="row mb-2" *ngIf="sorting !== null">
+  <div class="col text-center font-weight-bold">
+    <span class="text-cyan">Ordina macchine:</span> {{ sorting.display }}
+  </div>
+</div>
+
+
+<table class="table table-data m-0">
+  <thead>
+    <tr>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting && sorting.prop === 'name'"
+                (click)="changeSorting('name', 'nome')">&nbsp;</button>
+      </th>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting && sorting.prop === 'workArea'"
+                (click)="changeSorting('workArea', 'area di lavoro')">&nbsp;</button>
+      </th>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting && sorting.prop === 'maxHeight'"
+                (click)="changeSorting('maxHeight', 'altezza massima')">&nbsp;</button>
+      </th>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting && sorting.prop === 'priceHour'"
+                (click)="changeSorting('priceHour', 'prezzo orario')">&nbsp;</button>
+      </th>
+      <th class="magenta">
+        <button type="button" class="btn btn-link" (click)="openNew()">
+          <ng-container *ngIf="newMachine; else noNewMachine">
+            <i class="sos-icon skull"></i>
+          </ng-container>
+          <ng-template #noNewMachine>+</ng-template>
+        </button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="newMachine !== null" class="opened-row magenta">
+      <td colspan="5">
+        <div class="row">
+          <div class="col-4">
+            <div>Nome macchina:</div>
+            <input type="text" class="form-control form-control-sm"
+                   [(ngModel)]="newMachine.editing.name" required
+                   id="machine-name-new">
+          </div>
+          <div class="col-3">
+            <div>Area di lavoro:</div>
+            <input type="text" class="form-control form-control-sm"
+                   [(ngModel)]="newMachine.editing.workArea"
+                   id="machine-workArea-new">
+          </div>
+          <div class="col-3">
+            <div>Altezza massima:</div>
+            <input type="text" class="form-control form-control-sm"
+                   [(ngModel)]="newMachine.editing.maxHeight"
+                   id="machine-maxHeight-new">
+          </div>
+          <div class="col-2">
+            <div>Prezzo orario:</div>
+            <input type="number" class="form-control form-control-sm"
+                   [(ngModel)]="newMachine.editing.priceHour" required
+                   id="machine-priceHour-new">
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-4">
+            <div>Dettagli TAGLIO:</div>
+            <input type="text" class="form-control form-control-sm"
+                   [(ngModel)]="newMachine.editing.cutsMaterials"
+                   id="machine-cutsMaterials-new" autocomplete="off">
+            <div class="row mt-3 machine-detail-selector">
+              <div class="col-6">METALLI:</div>
+              <div class="col-6 long-dash">
+                <div class="btn-group btn-group-toggle">
+                  <label class="btn btn-link" [class.active]="newMachine.editing.cutsMetal">
+                    <input type="radio" autocomplete="off"
+                           [(ngModel)]="newMachine.editing.cutsMetal" [value]="true"
+                           name="machine-cutsMetal-new"> taglia
+                  </label>
+                  <span class="divider"></span>
+                  <label class="btn btn-link" [class.active]="!newMachine.editing.cutsMetal">
+                    <input type="radio" autocomplete="off"
+                           [(ngModel)]="newMachine.editing.cutsMetal" [value]="false"
+                           name="machine-cutsMetal-new"> non taglia
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row machine-detail-selector">
+              <div class="col-6">NON METALLI:</div>
+              <div class="col-6 long-dash">
+                <div class="btn-group btn-group-toggle">
+                  <label class="btn btn-link" [class.active]="newMachine.editing.cutsNonMetal">
+                    <input type="radio" autocomplete="off"
+                           [(ngModel)]="newMachine.editing.cutsNonMetal" [value]="true"
+                           name="machine-cutsNonMetal-new"> taglia
+                  </label>
+                  <span class="divider"></span>
+                  <label class="btn btn-link" [class.active]="!newMachine.editing.cutsNonMetal">
+                    <input type="radio" autocomplete="off"
+                           [(ngModel)]="newMachine.editing.cutsNonMetal" [value]="false"
+                           name="machine-cutsNonMetal-new"> non taglia
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div>Dettagli INCISIONE:</div>
+            <input type="text" class="form-control form-control-sm"
+                   (click)="$event.stopPropagation()"
+                   [(ngModel)]="newMachine.editing.engravesMaterials"
+                   id="machine-engravesMaterials-new" autocomplete="off">
+            <div class="row machine-detail-selector mt-3">
+              <div class="col-6">METALLI:</div>
+              <div class="col-6 long-dash">
+                <div class="btn-group btn-group-toggle">
+                  <label class="btn btn-link" [class.active]="newMachine.editing.engravesMetal">
+                    <input type="radio" autocomplete="off"
+                           [(ngModel)]="newMachine.editing.engravesMetal" [value]="true"
+                           name="machine-engravesMetal-new"> incide
+                  </label>
+                  <span class="divider"></span>
+                  <label class="btn btn-link" [class.active]="!newMachine.editing.engravesMetal">
+                    <input type="radio" autocomplete="off"
+                           [(ngModel)]="newMachine.editing.engravesMetal" [value]="false"
+                           name="machine-engravesMetal-new"> non incide
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row machine-detail-selector">
+              <div class="col-6">NON METALLI:</div>
+              <div class="col-6 long-dash">
+                <div class="btn-group btn-group-toggle">
+                  <label class="btn btn-link" [class.active]="newMachine.editing.engravesNonMetal">
+                    <input type="radio" autocomplete="off"
+                           [(ngModel)]="newMachine.editing.engravesNonMetal" [value]="true"
+                           name="machine-engravesNonMetal-new"> incide
+                  </label>
+                  <span class="divider"></span>
+                  <label class="btn btn-link" [class.active]="!newMachine.editing.engravesNonMetal">
+                    <input type="radio" autocomplete="off"
+                           [(ngModel)]="newMachine.editing.engravesNonMetal" [value]="false"
+                           name="machine-engravesNonMetal-new"> non incide
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <ng-container *ngIf="newMachine.editing.operator; else noOperatorEditTpl">
+              <div>Disponibile con operatore.</div>
+              <button type="button" class="btn btn-link text-right-arrow"
+                      (click)="toggleOperator(newMachine)">Annulla</button>
+            </ng-container>
+            <ng-template #noOperatorEditTpl>
+              <div>Disponibile senza operatore</div>
+              <button type="button" class="btn btn-link text-right-arrow"
+                      (click)="toggleOperator(newMachine)">Attiva operatore</button>
+            </ng-template>
+          </div>
+        </div>
+        <div class="text-right">
+          <button type="button" class="btn btn-link text-upper-bold"
+                  [disabled]="newMachine.saving || machineIsInvalid(newMachine)"
+                  (click)="saveMachine(newMachine)">Salva</button>
+        </div>
+      </td>
+    </tr>
+    <ng-container *ngFor="let machine of filtered; let idx = index">
+      <tr (click)="openMachine(idx)" [class.active]="machine.opened">
+        <td class="text-center">
+          <ng-container *ngIf="machine.editing as editing; else nameTpl">
+            <input type="text" class="form-control form-control-sm"
+                   (click)="$event.stopPropagation()"
+                   [(ngModel)]="editing.name" required
+                   id="machine-name-{{idx}}" autocomplete="off">
+          </ng-container>
+          <ng-template #nameTpl>
+            <div>{{ machine.name }}</div>
+          </ng-template>
+        </td>
+        <td class="text-center">
+          <ng-container *ngIf="machine.editing as editing; else workAreaTpl">
+            <input type="text" class="form-control form-control-sm"
+                   (click)="$event.stopPropagation()"
+                   [(ngModel)]="editing.workArea"
+                   id="machine-workArea-{{idx}}" autocomplete="off">
+          </ng-container>
+          <ng-template #workAreaTpl>
+            <div>{{ machine.workArea }}</div>
+          </ng-template>
+        </td>
+        <td class="text-center">
+          <ng-container *ngIf="machine.editing as editing; else maxHeightTpl">
+            <input type="text" class="form-control form-control-sm"
+                   (click)="$event.stopPropagation()"
+                   [(ngModel)]="editing.maxHeight"
+                   id="machine-maxHeight-{{idx}}" autocomplete="off">
+          </ng-container>
+          <ng-template #maxHeightTpl>
+            <div>{{ machine.maxHeight }}</div>
+          </ng-template>
+        </td>
+        <td class="text-center">
+          <ng-container *ngIf="machine.editing as editing; else priceHourTpl">
+            <input type="number" class="form-control form-control-sm"
+                   (click)="$event.stopPropagation()"
+                   [(ngModel)]="editing.priceHour" required
+                   id="machine-priceHour-{{idx}}" autocomplete="off">
+          </ng-container>
+          <ng-template #priceHourTpl>
+            <div>
+              {{ machine.priceHour | currency:'EUR':true }}
+              <small>/ ora</small>
+            </div>
+          </ng-template>
+        </td>
+        <td class="p-0 table-col-small">
+          <button type="button" class="btn btn-black w-100 h-100"
+                  (click)="deleteMachine($event, idx)">
+            <i class="sos-icon skull"></i>
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="machine.opened" class="opened-row">
+        <td colspan="5">
+          <div class="row">
+            <div class="col-4">
+              <div>Dettagli TAGLIO:</div>
+              <ng-container *ngIf="machine.editing as editing; else showCutsMaterialsTpl">
+                <input type="text" class="form-control form-control-sm"
+                       (click)="$event.stopPropagation()"
+                       [(ngModel)]="editing.cutsMaterials"
+                       id="machine-cutsMaterials-{{idx}}" autocomplete="off">
+                <div class="row mt-3 machine-detail-selector">
+                  <div class="col-6">METALLI:</div>
+                  <div class="col-6 long-dash">
+                    <div class="btn-group btn-group-toggle">
+                      <label class="btn btn-link" [class.active]="editing.cutsMetal">
+                        <input type="radio" autocomplete="off"
+                               [(ngModel)]="editing.cutsMetal" [value]="true"
+                               name="machine-cutsMetal-{{idx}}"> taglia
+                      </label>
+                      <span class="divider"></span>
+                      <label class="btn btn-link" [class.active]="!editing.cutsMetal">
+                        <input type="radio" autocomplete="off"
+                               [(ngModel)]="editing.cutsMetal" [value]="false"
+                               name="machine-cutsMetal-{{idx}}"> non taglia
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row machine-detail-selector">
+                  <div class="col-6">NON METALLI:</div>
+                  <div class="col-6 long-dash">
+                    <div class="btn-group btn-group-toggle">
+                      <label class="btn btn-link" [class.active]="editing.cutsNonMetal">
+                        <input type="radio" autocomplete="off"
+                               [(ngModel)]="editing.cutsNonMetal" [value]="true"
+                               name="machine-cutsNonMetal-{{idx}}"> taglia
+                      </label>
+                      <span class="divider"></span>
+                      <label class="btn btn-link" [class.active]="!editing.cutsNonMetal">
+                        <input type="radio" autocomplete="off"
+                               [(ngModel)]="editing.cutsNonMetal" [value]="false"
+                               name="machine-cutsNonMetal-{{idx}}"> non taglia
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #showCutsMaterialsTpl>
+                <div>{{ machine.cutsMaterials }}</div>
+                <div class="row mt-3">
+                  <div class="col-6">METALLI:</div>
+                  <div class="col-6 long-dash">
+                    {{ machine.cutsMetal ? 'taglia' : 'non taglia' }}</div>
+                </div>
+                <div class="row">
+                  <div class="col-6">NON METALLI:</div>
+                  <div class="col-6 long-dash">
+                    {{ machine.cutsNonMetal ? 'taglia' : 'non taglia' }}</div>
+                </div>
+              </ng-template>
+            </div>
+            <div class="col-4">
+              <div>Dettagli INCISIONE:</div>
+              <ng-container *ngIf="machine.editing as editing; else showEngravesMaterialsTpl">
+                <input type="text" class="form-control form-control-sm"
+                       (click)="$event.stopPropagation()"
+                       [(ngModel)]="editing.engravesMaterials"
+                       id="machine-engravesMaterials-{{idx}}" autocomplete="off">
+                <div class="row machine-detail-selector mt-3">
+                  <div class="col-6">METALLI:</div>
+                  <div class="col-6 long-dash">
+                    <div class="btn-group btn-group-toggle">
+                      <label class="btn btn-link" [class.active]="editing.engravesMetal">
+                        <input type="radio" autocomplete="off"
+                               [(ngModel)]="editing.engravesMetal" [value]="true"
+                               name="machine-engravesMetal-{{idx}}"> incide
+                      </label>
+                      <span class="divider"></span>
+                      <label class="btn btn-link" [class.active]="!editing.engravesMetal">
+                        <input type="radio" autocomplete="off"
+                               [(ngModel)]="editing.engravesMetal" [value]="false"
+                               name="machine-engravesMetal-{{idx}}"> non incide
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row machine-detail-selector">
+                  <div class="col-6">NON METALLI:</div>
+                  <div class="col-6 long-dash">
+                    <div class="btn-group btn-group-toggle">
+                      <label class="btn btn-link" [class.active]="editing.engravesNonMetal">
+                        <input type="radio" autocomplete="off"
+                               [(ngModel)]="editing.engravesNonMetal" [value]="true"
+                               name="machine-engravesNonMetal-{{idx}}"> incide
+                      </label>
+                      <span class="divider"></span>
+                      <label class="btn btn-link" [class.active]="!editing.engravesNonMetal">
+                        <input type="radio" autocomplete="off"
+                               [(ngModel)]="editing.engravesNonMetal" [value]="false"
+                               name="machine-engravesNonMetal-{{idx}}"> non incide
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #showEngravesMaterialsTpl>
+                <div>{{ machine.engravesMaterials }}</div>
+                <div class="row mt-3">
+                  <div class="col-6">METALLI:</div>
+                  <div class="col-6 long-dash">
+                    {{ machine.engravesMetal ? 'incide' : 'non incide' }}</div>
+                </div>
+                <div class="row">
+                  <div class="col-6">NON METALLI:</div>
+                  <div class="col-6 long-dash">
+                    {{ machine.engravesNonMetal ? 'incide' : 'non incide' }}</div>
+                </div>
+              </ng-template>
+            </div>
+            <div class="col-4">
+              <div class="row">
+                <div class="col-10">
+                  <ng-container *ngIf="machine.editing as editing; else showSavedOperatorTpl">
+                    <ng-container *ngIf="editing.operator; else noOperatorEditTpl">
+                      <div>Disponibile con operatore.</div>
+                      <button type="button" class="btn btn-link text-right-arrow"
+                              (click)="toggleOperator(idx)">Annulla</button>
+                    </ng-container>
+                    <ng-template #noOperatorEditTpl>
+                      <div>Disponibile senza operatore</div>
+                      <button type="button" class="btn btn-link text-right-arrow"
+                              (click)="toggleOperator(idx)">Attiva operatore</button>
+                    </ng-template>
+                  </ng-container>
+                  <ng-template #showSavedOperatorTpl>
+                    <ng-container *ngIf="machine.operator; else noOperatorTpl">
+                      <div>Disponibile con operatore.</div>
+                    </ng-container>
+                    <ng-template #noOperatorTpl>
+                      <div>Disponibile senza operatore</div>
+                    </ng-template>
+                  </ng-template>
+                </div>
+                <div class="col-2 text-right">
+                  <button type="button" class="btn btn-yellow" (click)="toggleEditing(idx)">
+                    <i class="sos-icon"
+                       [class.edit]="!machine.editing"
+                       [class.skull]="machine.editing"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="machine.editing" class="text-right">
+            <button type="button" class="btn btn-yellow text-upper-bold"
+                    [disabled]="machine.saving || machineIsInvalid(idx)"
+                    (click)="saveMachine(idx)">Salva</button>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

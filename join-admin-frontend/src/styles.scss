@@ -1,0 +1,390 @@
+@import "variables";
+@import "~bootstrap/scss/bootstrap";
+@import "~@sos/sos-ui-shared/scss/styles";
+
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome";
+
+@import "~jquery-tageditor/jquery.tag-editor";
+
+
+@font-face {
+  font-family: FreakGrotesk;
+  src: url("/assets/fonts/FREAKGrotesk-next.otf");
+}
+
+@font-face {
+  font-family: HKGrotesk;
+  src: url("/assets/fonts/HKGrotesk-Regular.otf");
+}
+
+@font-face {
+  font-family: HKGrotesk;
+  font-weight: bold;
+  src: url("/assets/fonts/HKGrotesk-Bold.otf");
+}
+
+@font-face {
+  font-family: HKGrotesk;
+  font-weight: 300;
+  src: url("/assets/fonts/HKGrotesk-Light.otf");
+}
+
+@font-face {
+  font-family: HKGrotesk;
+  font-weight: 800;
+  src: url("/assets/fonts/HKGrotesk-Medium.otf");
+}
+
+@font-face {
+  font-family: HKGrotesk;
+  font-style: italic;
+  src: url("/assets/fonts/HKGrotesk-Italic.otf");
+}
+
+@font-face {
+  font-family: MinionPro;
+  src: url("/assets/fonts/MinionPro-Regular.otf");
+}
+
+
+.font-freak {
+  font-family: FreakGrotesk, sans-serif;
+}
+.font-feat-a {
+  font-family: FreakGrotesk, sans-serif;
+  font-variant-ligatures: contextual;
+  -moz-font-feature-settings: "calt";
+  -webkit-font-feature-settings: "calt";
+  font-feature-settings: "calt";
+}
+.font-feat-b{
+  font-family: FreakGrotesk, sans-serif;
+  -moz-font-feature-settings: "ss01";
+  -webkit-font-feature-settings: "ss01";
+  font-feature-settings: "ss01";
+}
+.font-feat-c{
+  font-family: FreakGrotesk, sans-serif;
+  -moz-font-feature-settings: "ss02";
+  -webkit-font-feature-settings: "ss02";
+  font-feature-settings: "ss02";
+}
+.font-feat-d{
+  font-family: FreakGrotesk, sans-serif;
+  -moz-font-feature-settings: "ss03";
+  -webkit-font-feature-settings: "ss03";
+  font-feature-settings: "ss03";
+}
+.font-feat-e{
+  font-family: FreakGrotesk, sans-serif;
+  -moz-font-feature-settings: "ss04";
+  -webkit-font-feature-settings: "ss04";
+  font-feature-settings: "ss04";
+}
+.font-feat-f{
+  font-family: FreakGrotesk, sans-serif;
+  -moz-font-feature-settings: "ss05";
+  -webkit-font-feature-settings: "ss05";
+  font-feature-settings: "ss05";
+}
+.font-feat-g{
+  font-family: FreakGrotesk, sans-serif;
+  -moz-font-feature-settings: "ss06";
+  -webkit-font-feature-settings: "ss06";
+  font-feature-settings: "ss06";
+}
+.font-feat-h{
+  font-family: FreakGrotesk, sans-serif;
+  -moz-font-feature-settings: "ss07";
+  -webkit-font-feature-settings: "ss07";
+  font-feature-settings: "ss07";
+}
+
+
+.sos-icon {
+  font: normal normal normal 14px/1 FreakGrotesk;
+  font-size: inherit;
+  &.large {
+    font-size: larger;
+  }
+  &.agree:before {
+    content: $sos-agree;
+  }
+  &.wish:before {
+    content: $sos-wish;
+  }
+  &.comment:before {
+    content: $sos-comment;
+  }
+  &.favorite:before {
+    content: $sos-hearth;
+  }
+  &.edit:before {
+    content: $sos-edit;
+  }
+  &.skull:before {
+    content: $sos-skull;
+  }
+  &.bookmark:before {
+    content: $sos-bookmarks;
+  }
+  &.left-arrow:before {
+    content: $left-arrow;
+  }
+  &.trend-up:before {
+    content: $up-arrow;
+  }
+  &.trend-eq:before {
+    content: '=';
+  }
+  &.trend-down:before {
+    content: $down-arrow;
+  }
+}
+
+
+#main-content {
+  margin-bottom: 30px;
+}
+
+.card {
+  &.is-invalid {
+    border: 1px solid $red;
+  }
+}
+
+
+.btn {
+  &.btn-magenta-invert {
+    @include button-variant(white, white, $magenta, $magenta, $magenta, $magenta);
+  }
+  &.btn-yellow {
+    @include button-variant($yellow, $yellow, white, black, white, black);
+  }
+  &.btn-yellow-toggle {
+    @include button-variant(white, black, $yellow, black, $yellow, black);
+  }
+  &.btn-white {
+    @include button-variant(white, white, black, black, black, black);
+  }
+}
+
+
+.form-control {
+  background-color: $input-bg;
+  &:focus {
+    background-color: $input-bg;
+  }
+}
+
+
+.bg-yellow {
+  background-color: $yellow;
+}
+.bg-black {
+  background-color: black;
+  color: white;
+}
+
+.text-black {
+  color: black;
+}
+
+
+.text-right-arrow:before {
+  content: $right-arrow;
+  margin-right: 8px;
+}
+
+.long-dash:before {
+  content: $long-dash;
+}
+
+.list-inline-commas {
+  .list-inline-item:not(:last-of-type):after {
+    content: ',';
+  }
+}
+
+
+.badge {
+  &.badge-yellow {
+    background-color: $yellow;
+  }
+  &.badge-white {
+    background-color: white;
+    color: black;
+  }
+}
+
+
+hr.dotted, .dotted-border-top {
+  border-top: 2px dotted $gray-300;
+}
+
+
+.bottom-bar {
+  border-top: 2px solid black;
+  justify-content: space-between;
+  margin-top: map_get($spacers, 5);
+  padding-top: map_get($spacers, 3);
+  .btn {
+    font-weight: bold;
+  }
+  & > * {
+    text-align: center;
+  }
+}
+
+
+sos-modals {
+  .modal-header {
+    .modal-title {
+      font-family: FreakGrotesk, fantasy;
+      font-size: 2.6rem;
+      width: 100%;
+      text-align: center;
+    }
+  }
+  .modal-body {
+    text-align: center;
+    .bigger {
+      font-size: $font-size-base + .4rem;
+    }
+  }
+  .modal-footer {
+    justify-content: space-around;
+    .btn {
+      font-weight: bold;
+    }
+  }
+}
+
+
+.tag-editor {
+  border: 2px solid black;
+  font-size: inherit;
+  font-family: $font-family-base;
+  padding: ($input-padding-y - .15rem) $input-padding-x;
+  line-height: $input-line-height;
+  li {
+    margin: .15rem 0;
+  }
+  .tag-editor-tag, .tag-editor-delete {
+    background-color: $yellow;
+    color: black;
+  }
+  .tag-editor-delete {
+    border-left: 1px solid white;
+    i::before {
+      font-family: FreakGrotesk, sans-serif;
+      font-size: inherit;
+      color: black;
+      content: $sos-skull;
+    }
+    &:hover i::before {
+      color: white;
+    }
+  }
+}
+
+.form-control-sm ~ .tag-editor {
+  padding: ($input-padding-y-sm - .15rem) $input-padding-x-sm;
+  font-size: $font-size-sm;
+  line-height: $input-line-height-sm;
+}
+
+.is-invalid ~ .tag-editor {
+  border-color: $red;
+}
+
+
+.ui-autocomplete {
+  font-size: inherit;
+}
+
+.ui-widget.ui-widget-content {
+  border: 0;
+  background-color: black;
+  color: white;
+}
+
+.ui-menu {
+  padding: 0;
+  min-width: 200px;
+  &:after, &:before {
+    width: 0;
+    height: 0;
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    left: 20px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid black;
+  }
+  .ui-menu-item {
+    font-size: 1rem;
+    &:not(:first-of-type) {
+      border-top: 1px solid $gray-300;
+    }
+    .ui-menu-item-wrapper {
+      padding: 6px 8px;
+    }
+  }
+}
+
+.ui-state-active,
+.ui-menu .ui-menu-item .ui-menu-item-wrapper:hover {
+  background-color: $yellow;
+  color: black;
+  position: relative;
+  &:after {
+    position: absolute;
+    right: 8px;   // same as elem right padding
+    content: $sos-wish;
+    font-family: FreakGrotesk, sans-serif;
+  }
+}
+
+
+.dropdown.combobox {
+  .dropdown-menu {
+    background-color: black;
+    padding: 0;
+    &.caret {
+      position: relative;
+      &:before {
+        content: '';
+        position: absolute;
+        $size: 5px;
+        bottom: 100%;
+        left: 20px;
+        border-bottom: $size solid #000000;
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+      }
+    }
+    .dropdown-item {
+      font-size: 1rem;
+      color: white;
+      padding: .25rem 1.6rem .25rem .5rem;
+      &:not(.disabled) {
+        &:hover, &:focus {
+          background-color: $yellow;
+          color: $body-color;
+          &:after {
+            font-family: FreakGrotesk, sans-serif;
+            content: $sos-wish;
+            position: absolute;
+            right: 8px;
+          }
+        }
+      }
+    }
+    .form-control {
+      background-color: white;
+    }
+  }
+}

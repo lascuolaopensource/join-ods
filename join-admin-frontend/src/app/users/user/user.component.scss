@@ -1,0 +1,13 @@
+@import "../../../variables";
+
+
+.user-list {
+  & > :first-child {
+    margin-bottom: map_get($spacers, 2);
+  }
+  ul {
+    font-size: .9rem;
+    font-weight: bold;
+    line-height: 1;
+  }
+}

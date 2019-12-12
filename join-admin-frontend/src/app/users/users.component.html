@@ -1,0 +1,105 @@
+<div class="row">
+  <div class="col">
+    <form (submit)="changeFilter()" class="search-form" autocomplete="off">
+      <div class="form-row">
+        <div class="col-12 col-md-5 form-group">
+          <label class="font-weight-bold" for="search-people">Persone</label>
+          <input class="form-control form-control-sm" name="search-people" id="search-people"
+                 [(ngModel)]="filtering.name">
+        </div>
+        <div class="col-12 col-md-5 form-group">
+          <label class="font-weight-bold">Competenze</label>
+          <sos-admin-skills-tag-editor [skills]="filtering.skills"></sos-admin-skills-tag-editor>
+        </div>
+        <div class="col-12 col-md-2 form-group">
+          <button type="submit" class="btn btn-black btn-sm btn-block">Cerca</button>
+        </div>
+      </div>
+    </form>
+    <div class="row mb-2" *ngIf="sorting !== null">
+      <div class="col text-center font-weight-bold">
+        <span class="text-cyan">Ordina utenti:</span> {{ sorting.display }}
+      </div>
+    </div>
+    <div>
+      <table class="table table-data m-0">
+        <thead>
+          <tr>
+            <th>
+              <button type="button" class="btn btn-link"
+                      [class.active]="sorting && sorting.prop === 'fullName'"
+                      (click)="changeSorting('fullName', 'nome e cognome')">&nbsp;</button>
+            </th>
+            <th>
+              <button type="button" class="btn btn-link"
+                      [class.active]="sorting && sorting.prop === 'email'"
+                      (click)="changeSorting('email', 'e-mail')">&nbsp;</button>
+            </th>
+            <th>
+              <button type="button" class="btn btn-link"
+                      [class.active]="sorting && sorting.prop === 'telephone'"
+                      (click)="changeSorting('telephone', 'telefono')">&nbsp;</button>
+            </th>
+            <th>
+              <button type="button" class="btn btn-link"
+                      [class.active]="sorting && sorting.prop === 'ideasCount'"
+                      (click)="changeSorting('ideasCount', 'idee proposte')">&nbsp;</button>
+            </th>
+            <th>
+              <button type="button" class="btn btn-link"
+                      [class.active]="sorting && sorting.prop === 'skillsCount'"
+                      (click)="changeSorting('skillsCount', 'skills')">&nbsp;</button>
+            </th>
+            <th>
+              <button type="button" class="btn btn-link"
+                      [class.active]="sorting && sorting.prop === 'membership'"
+                      (click)="changeSorting('membership', 'membership')">&nbsp;</button>
+            </th>
+            <th><!--Delete--></th>
+            <th>
+              <button type="button" class="btn btn-link"
+                      [class.active]="sorting && sorting.prop === 'isAdmin'"
+                      (click)="changeSorting('isAdmin', 'amministratori')">&nbsp;</button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of filtered; let idx = index" (click)="openUser(u.id)">
+            <td><div>{{ u.fullName }}</div></td>
+            <td><div>{{ u.email }}</div></td>
+            <td><div>{{ u.telephone }}</div></td>
+            <td class="table-col-small-with-icon">
+              <div>
+                <span><i class="sos-icon edit"></i></span>
+                <span>{{ u.ideasCount }}</span>
+              </div>
+            </td>
+            <td class="table-col-small">
+              <div>{{ u.skillsCount }}</div>
+            </td>
+            <td class="table-col-small font-weight-bold"
+                [class.bg-danger]="u.memberships.request !== null">
+              <div>
+                {{ u.memberships.request !== null ?
+                    u.memberships.request.membershipType.name[0] :
+                    u.memberships.active !== null ?
+                      u.memberships.active.membershipType.name[0] : '' }}
+              </div>
+            </td>
+            <td class="p-0 table-col-small">
+              <sos-admin-user-delete [userId]="u.id" [loggedUserId]="user.id"
+                                     (deletedUsed)="deletedUser(u.id, idx)"></sos-admin-user-delete>
+            </td>
+            <td class="p-0 table-col-small">
+              <button type="button" role="button" class="btn btn-magenta-invert w-100 h-100"
+                      [class.active]="u.isAdmin" (click)="toggleRole($event, u)"
+                      [disabled]="u.id === user.id">
+                <i class="sos-icon bookmark"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

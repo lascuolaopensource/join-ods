@@ -1,0 +1,23 @@
+@import "../../variables";
+
+
+.membership-type {
+  margin-bottom: map_get($spacers, 5);
+  padding-bottom: map_get($spacers, 5);
+  border-bottom: 1px solid black;
+  .language {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2.2rem;
+    margin-bottom: map_get($spacers, 3);
+    span {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.btn {
+  font-weight: bold;
+  text-transform: uppercase;
+  @include padding-x(map_get($spacers, 5));
+}

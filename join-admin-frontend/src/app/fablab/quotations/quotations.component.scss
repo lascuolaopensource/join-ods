@@ -1,0 +1,12 @@
+@import "../../tables";
+
+
+table {
+  tbody {
+    font-weight: bold;
+    .quotation-detail {
+      font-size: 1rem;
+      white-space: normal;
+    }
+  }
+}

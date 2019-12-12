@@ -1,0 +1,18 @@
+@import "../../variables";
+
+
+#fablab-navigation {
+  text-align: center;
+  border-bottom: .8rem solid white;
+  @include padding-y(map_get($spacers, 5));
+  margin-bottom: map_get($spacers, 5);
+  .btn-link, span {
+    font-weight: bold;
+    font-size: 1.8rem;
+  }
+  .btn-link {
+    &:hover, &.active {
+      color: $cyan;
+    }
+  }
+}

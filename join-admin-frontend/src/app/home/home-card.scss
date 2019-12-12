@@ -1,0 +1,55 @@
+@import '../../variables';
+
+
+.home-card-row {
+  @include margin-x(- map_get($spacers, 1));
+  margin-bottom: - map_get($spacers, 2);
+  & > [class^='col'] {
+    @include padding-x(map_get($spacers, 1));
+    margin-bottom: map_get($spacers, 2);
+  }
+}
+
+.home-card {
+  border: 1px solid black;
+  font-size: 1rem;
+  padding: map_get($spacers, 2);
+  background-color: white;
+  height: 100%;
+}
+
+.home-card-title {
+  border-bottom: 1px solid black;
+  text-align: center;
+  text-transform: uppercase;
+  @include text-truncate;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: map_get($spacers, 2);
+}
+
+.home-card-loader {
+  width: 100%;
+  text-align: center;
+  .sos-icon {
+    font-size: 3rem;
+  }
+}
+
+.home-card-list {
+  display: flex;
+  justify-content: space-between;
+  & > :first-child {
+    width: 90%;
+    @include text-truncate;
+    &:before {
+      content: $right-arrow;
+    }
+  }
+}
+
+.home-card-numeric {
+  font-size: 3rem;
+  text-align: center;
+  font-weight: bold;
+}

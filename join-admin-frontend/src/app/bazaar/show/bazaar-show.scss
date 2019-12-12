@@ -1,0 +1,7 @@
+@import "bazaar-show.variables";
+
+
+.detail-row {
+  @include padding-y(map_get($spacers, 3));
+  border-bottom: $border;
+}

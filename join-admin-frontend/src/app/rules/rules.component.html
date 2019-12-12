@@ -1,0 +1,16 @@
+<div class="container">
+  <form *ngIf="rules$ | async as rules; else loading" (submit)="setRules(txtElm.value)">
+    <div class="form-group">
+      <label for="rules-text">Testo regolamento</label>
+      <textarea id="rules-text" class="form-control" rows="10" #txtElm [value]="rules"></textarea>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-black" [disabled]="sending">Salva</button>
+    </div>
+  </form>
+  <ng-template #loading>
+    <div class="mt-5 text-center">
+      <i class="sos-icon skull" style="font-size: 4rem"></i><br />Loading...
+    </div>
+  </ng-template>
+</div>

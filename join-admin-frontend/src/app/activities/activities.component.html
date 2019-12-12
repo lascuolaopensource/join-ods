@@ -1,0 +1,99 @@
+<div class="row">
+  <div class="col">
+
+    <form (submit)="changeFilter()" class="search-form" autocomplete="off">
+      <div class="form-row">
+        <div class="col-12 col-md-5 form-group">
+          <label class="font-weight-bold" for="search-people">Attività / Persone</label>
+          <input class="form-control form-control-sm" name="search-people" id="search-people"
+                 [(ngModel)]="filtering.search">
+        </div>
+        <div class="col-12 col-md-5 form-group">
+          <label class="font-weight-bold">Competenze</label>
+          <sos-admin-skills-tag-editor [skills]="filtering.skills"></sos-admin-skills-tag-editor>
+        </div>
+        <div class="col-12 col-md-2 form-group">
+          <button type="submit" class="btn btn-black btn-sm btn-block">Cerca</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="row mb-2" *ngIf="sorting !== null">
+      <div class="col text-center font-weight-bold">
+        <span class="text-cyan">Ordina attività:</span> {{ sorting.display }}
+      </div>
+    </div>
+
+    <table class="table table-data m-0">
+      <thead>
+        <tr>
+          <th>
+            <button type="button" class="btn btn-link"
+                    [class.active]="sorting && sorting.prop === 'daysActive'"
+                    (click)="changeSorting('daysActive', 'giorni di attività')">&nbsp;</button>
+          </th>
+          <th>
+            <button type="button" class="btn btn-link"
+                    [class.active]="sorting && sorting.prop === 'deadlineDate'"
+                    (click)="changeSorting('deadlineDate', 'deadline')">&nbsp;</button>
+          </th>
+          <th>
+            <button type="button" class="btn btn-link"
+                    [class.active]="sorting && sorting.prop === 'startDate'"
+                    (click)="changeSorting('startDate', 'data inizio')">&nbsp;</button>
+          </th>
+          <th><button type="button" class="btn btn-link"
+                      [class.active]="sorting && sorting.prop === 'title'"
+                      (click)="changeSorting('title', 'nome attività')">&nbsp;</button></th>
+          <th>
+            <button type="button" class="btn btn-link"
+                    [class.active]="sorting && sorting.prop === 'participantsCount'"
+                    (click)="changeSorting('participantsCount', 'numero partecipanti')">&nbsp;</button>
+          </th>
+          <th>
+            <button type="button" class="btn btn-link"
+                    [class.active]="sorting && sorting.prop === 'minParticipants'"
+                    (click)="changeSorting('minParticipants', 'numero minimo partecipanti')">&nbsp;</button>
+          </th>
+          <th>
+            <button type="button" class="btn btn-link"
+                    [class.active]="sorting && sorting.prop === 'type'"
+                    (click)="changeSorting('type', 'tipologia')">&nbsp;</button>
+          </th>
+          <th><!-- delete --></th>
+          <th>
+            <button type="button" class="btn btn-link"
+                    [class.active]="sorting && sorting.prop === 'totalHours'"
+                    (click)="changeSorting('totalHours', 'ore totali')">&nbsp;</button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let a of filtered; let idx = index" (click)="openActivity(a)"
+            [class.success]="a.successClass">
+          <td class="table-col-small">
+            <div>{{ a.daysActive }}</div>
+          </td>
+          <td class="text-center"><div>{{ a.deadlineDate | date:'shortDate' }}</div></td>
+          <td class="text-center"><div>{{ a.startDate | date:'shortDate' }}</div></td>
+          <td [title]="a.title"><div>{{ a.title }}</div></td>
+          <td class="table-col-small-with-icon">
+            <div>
+              <span><i class="sos-icon edit"></i></span>
+              <span>{{ a.participantsCount }}</span>
+            </div>
+          </td>
+          <td class="table-col-small"><div>{{ a.minParticipants }}</div></td>
+          <td class="table-col-small"><div>{{ a['typeChar'] }}</div></td>
+          <td class="p-0 table-col-small">
+            <button class="btn btn-black h-100 w-100" (click)="deleteActivity($event, a, idx)">
+              <i class="sos-icon skull"></i>
+            </button>
+          </td>
+          <td class="table-col-small"><div>{{ a.totalHours }}</div></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

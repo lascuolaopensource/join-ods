@@ -1,0 +1,88 @@
+<div class="row">
+  <div class="col">
+    <form (submit)="changeFilter()" class="search-form">
+      <div class="form-row">
+        <div class="col-12 col-md-5 form-group">
+          <label class="font-weight-bold" for="search-people">Idee / Persone</label>
+          <input class="form-control form-control-sm" name="search-people" id="search-people"
+                 [(ngModel)]="filtering.search">
+        </div>
+        <div class="col-12 col-md-5 form-group">
+          <label class="font-weight-bold">Competenze</label>
+          <sos-admin-skills-tag-editor [skills]="filtering.skills"></sos-admin-skills-tag-editor>
+        </div>
+        <div class="col-12 col-md-2 form-group">
+          <button type="submit" class="btn btn-black btn-sm btn-block">Cerca</button>
+        </div>
+      </div>
+    </form>
+    <div class="row mb-2" *ngIf="sorting !== null">
+      <div class="col text-center font-weight-bold">
+        <span class="text-cyan">Ordina idee:</span> {{ sorting.display }}
+      </div>
+    </div>
+    <div>
+      <table class="table table-data m-0">
+        <thead>
+          <tr>
+            <th>
+              <button type="button" class="btn btn-link"
+                      [class.active]="sorting && sorting.prop === 'createdAt'"
+                      (click)="changeSorting('createdAt', 'data creazione')">&nbsp;</button>
+            </th>
+            <th>
+              <button type="button" class="btn btn-link"
+                      [class.active]="sorting && sorting.prop === 'title'"
+                      (click)="changeSorting('title', 'titolo')">&nbsp;</button>
+            </th>
+            <th>
+              <button type="button" class="btn btn-link"
+                      [class.active]="sorting && sorting.prop === 'fullName'"
+                      (click)="changeSorting('fullName', 'nome e cognome')">&nbsp;</button>
+            </th>
+            <th>
+              <button type="button" class="btn btn-link"
+                      [class.active]="sorting && sorting.prop === 'score'"
+                      (click)="changeSorting('score', 'score')">&nbsp;</button>
+            </th>
+            <th>
+              <button type="button" class="btn btn-link"
+                      [class.active]="sorting && sorting.prop === 'ideaType'"
+                      (click)="changeSorting('ideaType', 'tipologia')">&nbsp;</button>
+            </th>
+            <th><!--delete--></th>
+            <th>
+              <button type="button" class="btn btn-link"
+                      [class.active]="sorting && sorting.prop === 'activityId'"
+                      (click)="changeSorting('activityId', 'attività')">&nbsp;</button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let idea of filtered; index as idx" (click)="openIdea(idea)">
+            <td class="text-center"><div>{{ idea.createdAt | date:'shortDate' }}</div></td>
+            <td><div>{{ idea.title }}</div></td>
+            <td class="text-center">
+              <div>{{ idea.creator.firstName.charAt(0) }}. {{ idea.creator.lastName }}</div>
+            </td>
+            <td class="table-col-small-with-icon">
+              <div>
+                <span><i class="sos-icon comment"></i></span>
+                <span>{{ idea.score | number:'.2' }}</span>
+              </div>
+            </td>
+            <td class="table-col-small"><div>{{ idea.ideaType.charAt(0).toUpperCase() }}</div></td>
+            <td class="table-col-small p-0">
+              <sos-admin-bazaar-delete [idea]="idea" (ideaDeleted)="deletedIdea(idea, idx)"></sos-admin-bazaar-delete>
+            </td>
+            <td class="table-col-small p-0">
+              <button (click)="openActivity($event, idea)" class="btn btn-magenta-invert w-100 h-100"
+                      [class.active]="idea.activityId != null">
+                <i class="sos-icon bookmark"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

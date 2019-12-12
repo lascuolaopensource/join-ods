@@ -1,0 +1,107 @@
+<div class="container">
+  <h3 class="mb-3">{{ user.firstName }} {{ user.lastName }}</h3>
+  <h5 class="long-dash mb-3" *ngIf="user.title" >{{ user.title }}</h5>
+  <p class="font-weight-bold" *ngIf="user.bio">{{ user.bio }}</p>
+  <div *ngIf="user.skills.length > 0" class="mb-3">
+    <span>Competenze:</span>
+    <ul class="list-inline list-inline-commas d-inline font-weight-bold">
+      <li class="list-inline-item" *ngFor="let s of user.skills">{{ s.name }}</li>
+    </ul>
+  </div>
+  <div class="row mb-3" *ngIf="user.telephone || user.email">
+    <div class="col-6" *ngIf="user.telephone">
+      <div>Telefono:</div>
+      <div class="font-weight-bold">{{ user.telephone }}</div>
+    </div>
+    <div class="col-6" *ngIf="user.email" [class.offset-6]="!user.telephone">
+      <div>E-mail:</div>
+      <div>
+        <a class="font-weight-bold" target="_blank" [href]="'mailto:'+user.email">
+          {{ user.email}}</a>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>Membership</div>
+    <div class="row font-weight-bold">
+      <div class="col-6" *ngIf="user.memberships.request">
+        <div>
+          <span class="badge badge-danger">Richiesta</span>
+          <span class="badge badge-primary">{{ user.memberships.request.membershipType.name }}</span>
+        </div>
+        <div>Richiesta: {{ user.memberships.request.requestedAt | date:'short' }}</div>
+        <div *ngIf="user.memberships.active">
+          Validità: {{ user.memberships.request.startsAt | date:'shortDate' }} - {{ user.memberships.request.endsAt | date:'shortDate' }}
+        </div>
+        <button (click)="acceptRequest()" type="button" class="btn btn-black">Accetta</button>
+      </div>
+      <div class="col-6" *ngIf="user.memberships.active">
+        <div>
+          <span class="badge badge-success">Attiva</span>
+          <span class="badge badge-primary">{{ user.memberships.active.membershipType.name }}</span>
+        </div>
+        <div>Richiesta: {{ user.memberships.active.requestedAt | date:'short' }}</div>
+        <div>Accettata: {{ user.memberships.active.acceptedAt | date:'short' }}</div>
+        <div>Validità: {{ user.memberships.active.startsAt | date:'shortDate' }} - {{ user.memberships.active.endsAt | date:'shortDate' }}</div>
+      </div>
+      <div class="col-6" *ngIf="user.memberships.renewal">
+        <div>
+          <span class="badge badge-info">Rinnovo</span>
+          <span class="badge badge-primary">{{ user.memberships.renewal.membershipType.name }}</span>
+        </div>
+        <div>Richiesta: {{ user.memberships.renewal.requestedAt | date:'short' }}</div>
+        <div>Accettata: {{ user.memberships.renewal.acceptedAt | date:'short' }}</div>
+        <div>Validità: {{ user.memberships.renewal.startsAt | date:'shortDate' }} - {{ user.memberships.renewal.endsAt | date:'shortDate' }}</div>
+      </div>
+    </div>
+  </div>
+  <hr class="dotted my-5" />
+  <div class="row">
+    <div class="col-4 user-list">
+      <div>Idee proposte:</div>
+      <ul class="list-arrows">
+        <li *ngFor="let idea of ideas">
+          <a [routerLink]="['/bazaar', idea.ideaType, idea.id]">{{ idea.title }}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-4 user-list">
+      <div>Progetti in corso:</div>
+      <ul class="list-arrows">
+        <li *ngFor="let activity of activities">
+          <a [routerLink]="['/activities/research', activity.id]">{{ activity.title }}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-4 user-list">
+      <div>Prenotazioni Fablab:</div>
+      <ul class="list-unstyled font-weight-normal">
+        <li *ngFor="let r of reservations">
+          <span class="font-weight-bold">{{ r.date | date:'dd/MM' }}</span>
+          <span>H: {{ r.hour | number:'2.2' }}</span>
+          <span class="right-arrow font-weight-bold"></span>
+          <span>{{ r.machine.name }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="row bottom-bar">
+  <div class="col-12 col-md-4">
+    <button type="button" class="btn btn-link"
+            [disabled]="user.id === loggedUser.id"
+            (click)="setUserRole(!user.isAdmin)">
+      <span *ngIf="!user.isAdmin">
+        <i class="sos-icon bookmark"></i> Rendi amministratore</span>
+      <span *ngIf="user.isAdmin">
+        <i class="sos-icon bookmark"></i> Rimuovi ruolo amministratore</span>
+    </button>
+  </div>
+  <div class="col-12 col-md-4">
+    <button type="button" class="btn btn-link text-danger"
+            [disabled]="user.id === loggedUser.id"
+            (click)="onClickDeleteUser()">
+      <i class="sos-icon skull"></i> Cancella utente</button>
+  </div>
+</div>

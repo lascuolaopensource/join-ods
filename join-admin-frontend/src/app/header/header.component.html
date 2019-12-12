@@ -1,0 +1,100 @@
+<nav class="navbar navbar-light">
+  <a class="navbar-brand" routerLink="home" queryParamsHandling="preserve">
+    <span class="font-feat-a">S</span>
+    <span class="font-feat-a">O</span>
+    <span class="font-feat-a">S</span>
+  </a>
+  <div class="period-selector" *ngIf="periodSelectorVisible">
+    <button type="button" class="btn btn-link dropdown-toggle"
+            [class.active]="selectedPreset === 'custom'"
+            data-toggle="dropdown">da... a...</button>
+    <div class="dropdown-menu">
+      <form class="form-inline" (submit)="updatePeriodCustom(fromElm.value, toElm.value)">
+        <div class="form-group">
+          <label class="sr-only" for="period-from">Inizio periodo</label>
+          <input type="date" class="form-control form-control-sm" id="period-from" #fromElm>
+        </div>
+        <div class="form-group mx-2">
+          <label class="sr-only" for="period-to">Fine periodo</label>
+          <input type="date" class="form-control form-control-sm" id="period-to" #toElm>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-sm btn-black">Invia</button>
+        </div>
+      </form>
+    </div>
+    /
+    <button type="button" class="btn btn-link" [class.active]="selectedPreset === 'year'"
+            (click)="updatePeriodPreset('year')">ultimo anno</button> /
+    <button type="button" class="btn btn-link" [class.active]="selectedPreset === 'month'"
+            (click)="updatePeriodPreset('month')">ultimo mese</button> /
+    <button type="button" class="btn btn-link" [class.active]="selectedPreset === 'week'"
+            (click)="updatePeriodPreset('week')">ultima settimana</button>
+  </div>
+  <div class="navbar-right-side">
+    <button class="btn btn-black btn-sm ml-auto mr-3" id="navbar-login" type="button"
+            *ngIf="showLogin" (click)="clickLogin($event)">Login</button>
+    <button class="btn btn-link navbar-sos-toggler" type="button"
+            data-toggle="collapse" data-target="#main-navbar"
+            aria-controls="main-navbar" aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="collapse navbar-collapse" id="main-navbar">
+  <nav class="navbar navbar-dark">
+    <a class="navbar-brand" routerLink="home" queryParamsHandling="preserve">
+      <span class="font-feat-a">S</span>
+      <span class="font-feat-a">O</span>
+      <span class="font-feat-a">S</span>
+    </a>
+    <button class="btn btn-link navbar-sos-toggler" type="button"
+            data-toggle="collapse" data-target="#main-navbar"
+            aria-controls="main-navbar" aria-expanded="true"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-7 col-md-8">
+        <div class="nav-item" routerLinkActive="active">
+          <a routerLink="users" queryParamsHandling="preserve">Utenti</a>
+        </div>
+        <div class="nav-item" routerLinkActive="active">
+          <a routerLink="skills" queryParamsHandling="preserve">Skills</a>
+        </div>
+        <div class="nav-item" routerLinkActive="active">
+          <a routerLink="bazaar" queryParamsHandling="preserve">Bazaar delle idee</a>
+        </div>
+        <div class="nav-item" routerLinkActive="active">
+          <a routerLink="activities" queryParamsHandling="preserve">Attività</a>
+        </div>
+        <div class="nav-item" routerLinkActive="active">
+          <a routerLink="fablab" queryParamsHandling="preserve">Fablab</a>
+        </div>
+        <div class="nav-item" routerLinkActive="active">
+          <a routerLink="memberships" queryParamsHandling="preserve">Memberships</a>
+        </div>
+      </div>
+      <div class="col-12 mt-3 col-sm-5 mt-sm-0 col-md-4">
+        <div *ngFor="let lang of supportedLanguages; let i = index"
+             class="nav-item" [class.active]="i === selectedLanguageId">
+          <button type="button" class="btn btn-link" (click)="changeLanguage(i)">
+            {{ languageFullName[lang.code] }}
+          </button>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-item" routerLinkActive="active">
+          <a routerLink="rules" queryParamsHandling="preserve">Regolamento</a>
+        </div>
+        <div class="nav-item">
+          <form name="logout-form" hidden method="post" [action]="logoutUrl"></form>
+          <button class="btn btn-link" (click)="doLogout($event)">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,138 @@
+@import "../variables";
+
+
+.search-form {
+  .form-row {
+    & > [class^='col-'] {
+      @include padding-x(0);
+      &:last-child {
+        margin-top: ($font-size-base * $line-height-base) + .5rem;    // .5rem is from bootstrap's reboot
+      }
+    }
+  }
+}
+
+
+@include media-breakpoint-up(md) {
+  .search-form {
+    .form-row > [class^='col-'] {
+      &:nth-child(1), &:nth-child(2) {
+        .form-control {
+          border-right: 0;
+        }
+      }
+    }
+  }
+}
+
+
+.table.table-data {
+  th {
+    padding: 0;
+    .btn-link {
+      min-width: 100%;
+      &:hover, &.active {
+        background-color: $cyan;
+      }
+    }
+    &, .btn-link {
+      background-color: #DCF7F5;
+    }
+    &.magenta .btn-link {
+      &:hover, &.active {
+        background-color: $cyan;
+      }
+      background-color: $magenta;
+      color: white;
+    }
+  }
+  td {
+    & > div {
+      @include text-truncate;
+    }
+    max-width: 250px;
+  }
+  tr {
+    &.success td {
+      background-color: $green;
+      color: white;
+    }
+    &:hover td, &.active td {
+      background-color: $yellow;
+    }
+  }
+  th, td {
+    border: 3px solid $body-bg;
+  }
+  td {
+    background-color: white;
+    padding: 0 map_get($spacers, 1);
+    height: 60px;
+    vertical-align: middle;
+  }
+  tbody tr {
+    cursor: pointer;
+  }
+
+  @mixin table-col($width) {
+    text-align: center;
+    width: $width;
+  }
+  .table-col-small {
+    @include table-col(60px);
+  }
+  .table-col-small-with-icon {
+    @include table-col(100px);
+    & > div {
+      @include padding-x(map_get($spacers, 2));
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  tbody .opened-row {
+    font-size: 1.2rem;
+    cursor: default;
+    td {
+      background-color: $yellow;
+      padding: map_get($spacers, 3);
+    }
+    &.magenta {
+      td {
+        background-color: $magenta;
+      }
+    }
+    .form-row .form-group {
+      margin-bottom: 0;
+    }
+    .btn-link, a {
+      &:hover, &.active {
+        color: white;
+      }
+    }
+    .btn-link {
+      padding: 0;
+    }
+    a, .text-right-arrow.btn-link {
+      font-weight: bold;
+      line-height: 1;
+      padding-bottom: 0;
+      border-bottom: 1px solid black;
+      &:hover, &.active {
+        border-bottom: 1px solid white;
+      }
+    }
+    .users-list {
+      margin-bottom: 0;
+      .btn {
+        &:hover, &.active {
+          color: $red;
+        }
+      }
+    }
+  }
+}
+
+.form-control.ng-invalid {
+  border-color: $red;
+}

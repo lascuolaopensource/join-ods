@@ -1,0 +1,127 @@
+<sos-admin-fablab-navigation></sos-admin-fablab-navigation>
+
+<form (submit)="changeFilter()" class="search-form" autocomplete="off">
+  <div class="form-row">
+    <div class="col-12 col-md-5 form-group">
+      <label class="font-weight-bold" for="search-people">Persone</label>
+      <input class="form-control form-control-sm" name="search-people" id="search-people"
+             [(ngModel)]="filtering.name">
+    </div>
+    <div class="col-12 col-md-5 form-group">
+      <label class="font-weight-bold" for="search-skill">Macchine</label>
+      <input class="form-control form-control-sm" name="search-skill" id="search-skill"
+             [(ngModel)]="filtering.machine">
+    </div>
+    <div class="col-12 col-md-2 form-group">
+      <button type="submit" class="btn btn-black btn-sm btn-block">Cerca</button>
+    </div>
+  </div>
+</form>
+
+<div class="row mb-2" *ngIf="sorting !== null">
+  <div class="col text-center font-weight-bold">
+    <span class="text-cyan">Ordina preventivi:</span> {{ sorting.display }}
+  </div>
+</div>
+
+<table class="table table-data m-0">
+  <thead>
+    <tr>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting && sorting.prop === 'userName'"
+                (click)="changeSorting('userName', 'nome utente')">&nbsp;</button>
+      </th>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting && sorting.prop === 'userEmail'"
+                (click)="changeSorting('userEmail', 'e-mail utente')">&nbsp;</button>
+      </th>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting && sorting.prop === 'userTel'"
+                (click)="changeSorting('userTel', 'telefono utente')">&nbsp;</button>
+      </th>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting && sorting.prop === 'createdAt'"
+                (click)="changeSorting('createdAt', 'data di creazione')">&nbsp;</button>
+      </th>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting && sorting.prop === 'machinesCount'"
+                (click)="changeSorting('machinesCount', 'numero macchine')">&nbsp;</button>
+      </th>
+      <th><!-- delete --></th>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting && sorting.prop === 'undertaken'"
+                (click)="changeSorting('undertaken', 'presi in carico')">&nbsp;</button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let q of filtered, let idx = index">
+      <tr [class.active]="q.opened" (click)="openQuotation(q)">
+        <td class="text-center">
+          <div>{{ q.userName }}</div>
+        </td>
+        <td class="text-center">
+          <div>{{ q.userEmail }}</div>
+        </td>
+        <td class="text-center">
+          <div>{{ q.userTel }}</div>
+        </td>
+        <td class="text-center">
+          <div>{{ q.createdAt | date:'shortDate' }}</div>
+        </td>
+        <td class="table-col-small">
+          <div>{{ q.machinesCount | number }}</div>
+        </td>
+        <td class="p-0 table-col-small">
+          <button type="button" class="btn btn-black w-100 h-100"
+                  (click)="deleteQuotation($event, idx)">
+            <i class="sos-icon skull"></i>
+          </button>
+        </td>
+        <td class="p-0 table-col-small">
+          <button type="button" class="btn btn-magenta-invert w-100 h-100"
+                  [class.active]="q.undertaken" (click)="updateUndertaken($event, q)">
+            <i class="sos-icon bookmark"></i>
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="q.opened" class="opened-row">
+        <td colspan="7">
+          <div class="row">
+            <div class="col-4">
+              <div>Cosa vuoi realizzare?</div>
+              <p class="quotation-detail">{{ q.realizationOf }}</p>
+            </div>
+            <div class="col-4">
+              <div>Con quali macchinari?</div>
+              <ul>
+                <li *ngFor="let m of q.machines" class="quotation-detail">
+                  {{ m.name }}</li>
+              </ul>
+            </div>
+            <div class="col-4">
+              <ng-container *ngIf="q.undertaken; else notUndertaken">
+                <div>Preventivo preso in carico.</div>
+                <button type="button" class="btn btn-link text-right-arrow"
+                        (click)="updateUndertaken($event, q)">
+                  Annulla</button>
+              </ng-container>
+              <ng-template #notUndertaken>
+                <div>Questo preventivo è inevaso.</div>
+                <button type="button" class="btn btn-link text-right-arrow"
+                        (click)="updateUndertaken($event, q)">
+                  Prendi in gestione</button>
+              </ng-template>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

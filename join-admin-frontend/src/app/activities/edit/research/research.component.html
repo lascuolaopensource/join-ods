@@ -1,0 +1,200 @@
+<div class="container">
+
+  <form #activityForm="ngForm" (submit)="saveActivity($event)">
+    <div class="form-row">
+      <div class="form-group col-4">
+        <label for="activity-language">Lingua</label>
+        <select class="form-control" #langOpt="ngModel" [(ngModel)]="selectedLanguage" (change)="languageChanged(langOpt.value)"
+                name="activity-language" id="activity-language">
+          <option *ngFor="let lang of supportedLanguages" [value]="lang">
+            {{ lang }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group col-8">
+        <label for="activity-title">Titolo ({{ selectedLanguage }})</label>
+        <input type="text" class="form-control" #title="ngModel" [(ngModel)]="activity.title" required
+               [class.is-invalid]="title.invalid" name="activity-title" id="activity-title" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label class="col">Cover pic</label>
+      <div class="col-4">
+        <sos-admin-pic-upload
+          [picture]="activity.coverPic.url"
+          (pictureChange)="coverPicChanged($event)">
+        </sos-admin-pic-upload>
+      </div>
+    </div>
+
+    <fieldset class="form-group my-5">
+      <label class="h5" for="gallery-name">Galleria immagini</label>
+      <div class="form-row">
+        <div class="form-group col-4">
+          <input type="text" class="form-control" #galleryName="ngModel" [(ngModel)]="activity.gallery.name" required
+                 [class.is-invalid]="galleryName.invalid" name="gallery-name" id="gallery-name" placeholder="Nome galleria" />
+        </div>
+        <div class="form-group col">
+          <button type="button" class="btn btn-sm btn-black text-upper-bold"
+                  (click)="addNewImage()">Aggiungi immagine</button>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-4 mb-2" *ngFor="let image of activity.gallery.images; let idx = index" [hidden]="image['delete']">
+          <sos-admin-pic-upload
+            [picture]="image.url"
+            (pictureChange)="imageGalleryChanged(image, $event)"
+            [removable]="true"
+            (removeIt)="removeImage(idx)">
+          </sos-admin-pic-upload>
+        </div>
+      </div>
+    </fieldset>
+
+    <sos-admin-activity-topics
+      [topics]="activity.topics"
+      [editing]="editing">
+    </sos-admin-activity-topics>
+
+    <div class="form-group">
+      <label for="activity-organization-name">Nome organizzazione / gruppo informale</label>
+      <input type="text" class="form-control" #organizationName="ngModel" [(ngModel)]="activity.organizationName"
+             [class.is-invalid]="organizationName.invalid" name="activity-organization-name" id="activity-organization-name" />
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-6">
+        <label for="activity-team-search">Componenti del Team</label>
+        <form (submit)="searchUser($event, searchUserElm.value)" class="input-group mb-2">
+          <input type="text" class="form-control" #searchUserElm
+                 id="activity-team-search" name="activity-team-search" />
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-black text-upper-bold"
+                    (click)="searchUser($event, searchUserElm.value)">Cerca</button>
+          </div>
+        </form>
+        <ul class="list-inline" *ngIf="foundUsers && foundUsers.length > 0">
+          <li class="list-inline-item mb-2" *ngFor="let u of foundUsers; let i = index">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text border-0 bg-black">
+                  {{ u.id }}. {{ u.firstName }} {{ u.lastName }}
+                </div>
+              </div>
+              <button type="button" class="btn btn-sm btn-black" (click)="addTeam(i)">
+                <i class="sos-icon wish"></i>
+              </button>
+            </div>
+          </li>
+        </ul>
+        <button type="button" class="btn btn-black text-upper-bold"
+                (click)="addTeam()">Aggiungi nuovo</button>
+      </div>
+      <div class="col-6">
+        <div *ngFor="let t of activity.team; let i = index">
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label for="activity-team-{{i}}-first-name">Nome</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="t.firstName" required
+                     id="activity-team-{{i}}-first-name" name="activity-team-{{i}}-first-name" />
+            </div>
+            <div class="form-group col-6">
+              <label for="activity-team-{{i}}-last-name">Cognome</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="t.lastName" required
+                     id="activity-team-{{i}}-last-name" name="activity-team-{{i}}-last-name" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="activity-team-{{i}}-title">Titolo</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="t.title" required
+                   id="activity-team-{{i}}-title" name="activity-team-{{i}}-title" />
+          </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-sm btn-black text-upper-bold"
+                    (click)="removeTeam(i)">Rimuovi</button>
+            <small *ngIf="t.userId != null" class="ml-2">
+              Collegato all'utente
+              <a [routerLink]="['/users', t.userId]" target="_blank">{{t.userId}}</a>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="activity-project-link">Link progetto</label>
+      <input type="text" class="form-control" #projectLink="ngModel" [(ngModel)]="activity.projectLink"
+             [class.is-invalid]="projectLink.invalid" name="activity-project-link" id="activity-project-link" />
+    </div>
+
+    <div class="form-group">
+      <label for="activity-motivation">Motivazione ({{ selectedLanguage }})</label>
+      <textarea class="form-control" rows="10" #motivation="ngModel" [(ngModel)]="activity.motivation" required
+                [class.is-invalid]="motivation.invalid" name="activity-motivation" id="activity-motivation"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="activity-value-details">Valore generato ({{ selectedLanguage }})</label>
+      <textarea class="form-control" rows="10" #valueDetails="ngModel" [(ngModel)]="activity.valueDetails" required
+                [class.is-invalid]="valueDetails.invalid" name="activity-value-details" id="activity-value-details"></textarea>
+    </div>
+
+    <div class="form-row mt-5">
+      <div class="form-group col-4">
+        <label for="activity-deadline">Ultimo giorno utile candidature</label>
+        <input type="date" class="form-control" #deadline="ngModel" [(ngModel)]="deadlineString"
+               (change)="setDeadlineDate()" required [class.is-invalid]="deadline.invalid"
+               name="activity-deadline" id="activity-deadline" />
+      </div>
+      <div class="form-group col-4">
+        <label for="activity-start-date">Giorno inizio progetto</label>
+        <input type="date" class="form-control" #startDate="ngModel" [(ngModel)]="startDateString"
+               (change)="setStartDate()" required [class.is-invalid]="startDate.invalid"
+               name="activity-start-date" id="activity-start-date" />
+      </div>
+      <div class="form-group col-4">
+        <label for="activity-duration">Durata progetto</label>
+        <input type="number" class="form-control" #duration="ngModel" [(ngModel)]="activity.duration"
+               required [class.is-invalid]="duration.invalid" name="activity-duration" id="activity-duration" />
+      </div>
+    </div>
+
+    <div class="form-group mt-5">
+      <label class="h5">Posizioni aperte</label>
+      <div class="form-row mt-3" *ngFor="let role of activity.roles; let i = index" [hidden]="role['delete']">
+        <div class="form-group col-3">
+          <label for="activity-role-{{i}}-people">Numero persone</label>
+          <input type="number" class="form-control" #people="ngModel" [(ngModel)]="role.people" required
+                 [class.is-invalid]="people.invalid" name="activity-role-{{i}}-people" id="activity-role-{{i}}-people" />
+        </div>
+        <div class="form-group col-7">
+          <sos-admin-activity-skills
+            [skills]="role.skills"
+            searchId="search-skills-{{i}}"
+            [editing]="editing"
+            labelText="Competenze richieste"
+            [required]="true">
+          </sos-admin-activity-skills>
+        </div>
+        <div class="form-group col-2 align-self-end text-right">
+          <button type="button" class="btn btn-sm btn-outline-black text-upper-bold"
+                  (click)="removeRole(i)">Rimuovi</button>
+        </div>
+      </div>
+      <div class="form-group text-right mt-3">
+        <button type="button" class="btn btn-sm btn-black text-upper-bold"
+                (click)="addRole()">Aggiungi posizione</button>
+      </div>
+    </div>
+
+    <div class="form-group text-center mt-5">
+      <button type="submit" class="btn btn-lg btn-yellow font-freak"
+              [disabled]="sendingModel || activityForm.invalid || hasInvalidData">
+        {{ submitTxt }} attività
+      </button>
+    </div>
+  </form>
+
+</div>

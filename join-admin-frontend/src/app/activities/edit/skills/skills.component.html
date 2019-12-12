@@ -1,0 +1,6 @@
+<fieldset>
+  <label [for]="searchId" class="font-weight-bold text-right-arrow">{{ labelText }}</label>
+  <!--suppress HtmlFormInputWithoutLabel -->
+  <input type="text" class="form-control"
+         [class.is-invalid]="isInvalid" [id]="searchId" />
+</fieldset>

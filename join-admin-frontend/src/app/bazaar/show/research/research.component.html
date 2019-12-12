@@ -1,0 +1,69 @@
+<div class="container">
+  <h1>{{ idea.title }}</h1>
+  <hr class="dotted" />
+  <dl class="row">
+    <dt class="col-3">Autore:</dt>
+    <dd class="col-9">{{ idea.creator.firstName }} {{ idea.creator.lastName }}</dd>
+
+    <dt class="col-3">Nome organizzazione:</dt>
+    <dd class="col-9">{{ idea.organizationName }}</dd>
+
+    <dt class="col-3">Argomenti:</dt>
+    <dd class="col-9">
+      <ul class="list-inline">
+        <li *ngFor="let topic of idea.topics" class="list-inline-item">
+          <span class="badge badge-yellow">{{ topic.topic }}</span>
+        </li>
+      </ul>
+    </dd>
+
+    <dt class="col-3">Deadline:</dt>
+    <dd class="col-9">{{ deadlineDate | date:'shortDate' }} ({{ idea.deadline }} giorni dalla creazione)</dd>
+
+    <dt class="col-3">Durata:</dt>
+    <dd class="col-9">{{ endDate | date:'shortDate' }} ({{ idea.duration }} giorni dalla deadline)</dd>
+  </dl>
+
+  <sos-admin-bazaar-interactions [idea]="idea"></sos-admin-bazaar-interactions>
+
+  <div class="detail-row">
+    <div class="font-weight-bold">Competenze richieste:</div>
+    <div *ngFor="let p of idea.positions">
+      <strong>{{ p.people }}</strong> persone con competenze
+      <ul class="list-inline d-inline mb-0">
+        <li *ngFor="let s of p.skills" class="list-inline-item">
+          <span class="badge badge-yellow">{{ s.name }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="detail-row">
+    <div class="font-weight-bold">Valore generato:</div>
+    <div>{{ idea.valueDetails }}</div>
+  </div>
+
+  <div class="detail-row">
+    <div class="font-weight-bold">Motivazioni:</div>
+    <div>{{ idea.motivation }}</div>
+  </div>
+
+  <div class="detail-row">
+    <div class="font-weight-bold">Risorse richieste:</div>
+    <div>{{ idea.requiredResources }}</div>
+  </div>
+
+  <div class="detail-row row" [class.border-bottom-0]="!showingComments">
+    <div class="font-weight-bold col-3">Creato:</div>
+    <div class="col-3">{{ idea.createdAt | date:'shortDate' }}</div>
+    <div class="font-weight-bold col-3">Ultima modifica:</div>
+    <div class="col-3">{{ idea.updatedAt | date:'shortDate' }}</div>
+  </div>
+
+  <div [class.detail-row]="showingComments" class="border-bottom-0">
+    <router-outlet (activate)="onCommentsToggle(true)" (deactivate)="onCommentsToggle(false)"></router-outlet>
+  </div>
+</div>
+
+<sos-admin-bazaar-bottom-bar [idea]="idea" [showingComments]="showingComments"
+                             (onIdeaDelete)="deletedIdea()"></sos-admin-bazaar-bottom-bar>

@@ -1,0 +1,56 @@
+@import "~@sos/sos-ui-shared/scss/variables";
+
+
+$body-bg: #EDEDED;
+
+$font-family-base: HKGrotesk;
+$font-size-base: 1.5rem;
+
+$enable-shadows: false;
+$input-btn-focus-width: 0;
+$input-btn-focus-box-shadow: 0;
+
+$btn-border-width: 2px;
+
+$link-color:            black;
+$link-decoration:       none;
+$link-hover-color:      $yellow;
+$link-hover-decoration: none;
+
+$long-dash: '\2015';
+$navbar-toggler-icon: '\2025';
+$sos-skull: '\1e80';
+$sos-hearth: '\0395';
+$sos-bookmarks: '\0394';
+$sos-agree: '\0393';
+$sos-edit: '\0392';
+$sos-comment: '\0391';
+$sos-wish: '\2126';
+$left-arrow: '\2190';
+$up-arrow: '\1f819';
+$down-arrow: '\1f81b';
+
+$navbar-z-index: 999999;
+
+
+@mixin padding-x($space) {
+  padding-left: $space;
+  padding-right: $space;
+}
+
+@mixin padding-y($space) {
+  padding-top: $space;
+  padding-bottom: $space;
+}
+
+@mixin margin-x($space) {
+  margin-left: $space;
+  margin-right: $space;
+}
+
+@mixin margin-y($space) {
+  margin-top: $space;
+  margin-bottom: $space;
+}
+
+@import "~bootstrap/scss/mixins", "~bootstrap/scss/functions", "~bootstrap/scss/variables";

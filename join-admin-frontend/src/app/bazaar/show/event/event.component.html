@@ -1,0 +1,103 @@
+<div class="container">
+  <h1>{{ idea.title }}</h1>
+  <hr class="dotted" />
+  <dl class="row">
+    <dt class="col-3">Autore:</dt>
+    <dd class="col-9">{{ idea.creator.firstName }} {{ idea.creator.lastName }}</dd>
+
+    <dt class="col-3">Argomenti:</dt>
+    <dd class="col-9">
+      <ul class="list-inline">
+        <li *ngFor="let topic of idea.topics" class="list-inline-item">
+          <span class="badge badge-yellow">{{ topic.topic }}</span>
+        </li>
+      </ul>
+    </dd>
+
+    <dt class="col-3">Ospiti:</dt>
+    <dd class="col-9">
+      <ul class="list-inline-commas mb-0 pl-0">
+        <li *ngFor="let guest of idea.guests" class="list-inline-item">
+          {{ guest.firstName }} {{ guest.lastName }}<span *ngIf="guest.title"> ({{ guest.title }})</span>
+        </li>
+      </ul>
+    </dd>
+
+    <dt class="col-3">Tipologia attività:</dt>
+    <dd class="col-9">{{ activityType(idea.activityType) }}</dd>
+
+    <dt class="col-3">Audience:</dt>
+    <dd class="col-9">
+      <ul class="list-inline-commas mb-0 pl-0">
+        <li *ngFor="let a of idea.audience" class="list-inline-item">{{ audience(a) }}</li>
+      </ul>
+    </dd>
+
+    <dt class="col-3">Appuntamenti:</dt>
+    <dd class="col-9">
+      <sos-admin-bazaar-meetings-display [meetings]="idea.meetings"></sos-admin-bazaar-meetings-display>
+    </dd>
+
+    <dt class="col-3">Date:</dt>
+    <dd class="col-9">
+      <ul class="list-unstyled">
+        <li *ngFor="let d of idea.dates">
+          {{ d.date | date:'fullDate' }} dalle {{ d.startTime | date:'shortTime' }} alle {{ d.endTime | date:'shortTime' }}
+        </li>
+      </ul>
+    </dd>
+
+    <dt class="col-3">Risorse richieste:</dt>
+    <dd class="col-9">{{ idea.requiredResources }}</dd>
+
+    <dt class="col-3">Spazi richiesti:</dt>
+    <dd class="col-9">{{ idea.requiredSpaces }}</dd>
+
+    <dt class="col-3">Massimo partecipanti:</dt>
+    <dd class="col-9">{{ idea.maxParticipants }}</dd>
+
+    <dt class="col-3">Funding:</dt>
+    <dd class="col-9">
+      <ul class="list-inline-commas mb-0 pl-0">
+        <li *ngFor="let f of idea.funding" class="list-inline-item">{{ funding(f) }}</li>
+      </ul>
+    </dd>
+
+    <dt class="col-3">Richiesta prenotazione:</dt>
+    <dd class="col-9">{{ idea.bookingRequired ? 'sì' : 'no' }}</dd>
+
+    <dt class="col-3">Ruolo proponente:</dt>
+    <dd class="col-9">{{ idea.isOrganizer ? 'organizzatore' : 'ospite' }}</dd>
+  </dl>
+
+  <sos-admin-bazaar-interactions [idea]="idea"></sos-admin-bazaar-interactions>
+
+  <div class="detail-row">
+    <div class="font-weight-bold">Programma:</div>
+    <div>{{ idea.programDetails }}</div>
+  </div>
+
+  <div class="detail-row">
+    <div class="font-weight-bold">Valore generato:</div>
+    <div>{{ idea.valueDetails }}</div>
+  </div>
+
+  <div class="detail-row">
+    <div class="font-weight-bold">Motivazioni:</div>
+    <div>{{ idea.motivation }}</div>
+  </div>
+
+  <div class="detail-row row" [class.border-bottom-0]="!showingComments">
+    <div class="font-weight-bold col-3">Creato:</div>
+    <div class="col-3">{{ idea.createdAt | date:'shortDate' }}</div>
+    <div class="font-weight-bold col-3">Ultima modifica:</div>
+    <div class="col-3">{{ idea.updatedAt | date:'shortDate' }}</div>
+  </div>
+
+  <div [class.detail-row]="showingComments" class="border-bottom-0">
+    <router-outlet (activate)="onCommentsToggle(true)" (deactivate)="onCommentsToggle(false)"></router-outlet>
+  </div>
+</div>
+
+<sos-admin-bazaar-bottom-bar [idea]="idea" [showingComments]="showingComments"
+                             (onIdeaDelete)="deletedIdea()"></sos-admin-bazaar-bottom-bar>

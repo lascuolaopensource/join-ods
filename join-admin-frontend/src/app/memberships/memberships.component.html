@@ -1,0 +1,75 @@
+<div *ngFor="let type of types; let idx = index" class="membership-type">
+  <div class="container">
+    <form autocomplete="off" #form="ngForm" (submit)="saveMembership(type)">
+      <div class="form-row">
+        <ng-container
+          [ngTemplateOutlet]="typeTpl"
+          [ngTemplateOutletContext]="{ t: type.translations['it'], idx: idx }">
+        </ng-container>
+        <ng-container
+          [ngTemplateOutlet]="typeTpl"
+          [ngTemplateOutletContext]="{ t: type.translations['en'], idx: idx }">
+        </ng-container>
+        <ng-template #typeTpl let-t="t" let-idx="idx">
+          <div class="form-group col-6">
+            <div class="language">
+              {{ t.language }}
+              <span *ngIf="!t.saved" class="text-danger">(non salvato)</span>
+            </div>
+            <div class="form-group">
+              <label for="membership-name-{{t.language}}-{{idx}}">Nome</label>
+              <input
+                [(ngModel)]="t.name" class="form-control" required
+                #name="ngModel" [class.is-invalid]="name.invalid"
+                id="membership-name-{{t.language}}-{{idx}}"
+                name="membership-name-{{t.language}}-{{idx}}" />
+            </div>
+            <div class="form-group">
+              <label for="membership-offer-{{t.language}}-{{idx}}">Offerta</label>
+              <textarea
+                [(ngModel)]="t.offer" class="form-control" rows="8" required
+                #offer="ngModel" [class.is-invalid]="offer.invalid"
+                id="membership-offer-{{t.language}}-{{idx}}"
+                name="membership-offer-{{t.language}}-{{idx}}">
+              </textarea>
+            </div>
+            <div class="form-group">
+              <label for="membership-bottom-{{t.language}}-{{idx}}">Bottom line</label>
+              <input
+                [(ngModel)]="t.bottom" class="form-control" required
+                #bottom="ngModel" [class.is-invalid]="bottom.invalid"
+                id="membership-bottom-{{t.language}}-{{idx}}"
+                name="membership-bottom-{{t.language}}-{{idx}}" />
+            </div>
+          </div>
+        </ng-template>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-6">
+          <label for="membership-price-{{idx}}">Prezzo</label>
+          <input
+            type="number" class="form-control" [(ngModel)]="type.price"
+            required #price="ngModel" [class.is-invalid]="price.invalid"
+            id="membership-price-{{idx}}" name="membership-price-{{idx}}" />
+        </div>
+        <div class="form-group col-6">
+          <label for="membership-position-{{idx}}">Posizione</label>
+          <input
+            type="number" class="form-control" [(ngModel)]="type.position"
+            required [min]="0" #position="ngModel" [class.is-invalid]="position.invalid"
+            id="membership-position-{{idx}}" name="membership-position-{{idx}}" />
+        </div>
+      </div>
+      <div class="form-group text-right">
+        <button type="button" class="btn btn-outline-black"
+                (click)="deleteMembership(type, idx)">Elimina</button>
+        <button type="submit" class="btn btn-black" [disabled]="form.invalid">Salva</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="container d-flex justify-content-between">
+  <div class="font-weight-bold">Crea una nuova tipologia di membership</div>
+  <button type="button" class="btn btn-yellow" (click)="addMembership()">Crea</button>
+</div>

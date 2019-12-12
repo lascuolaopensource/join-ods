@@ -1,0 +1,149 @@
+<form (submit)="changeFilter()" class="search-form" autocomplete="off">
+  <div class="form-row">
+    <div class="col-12 col-md-5 form-group">
+      <label class="font-weight-bold" for="search-people">Persone</label>
+      <input class="form-control form-control-sm" name="search-people" id="search-people"
+             [(ngModel)]="filtering.name">
+    </div>
+    <div class="col-12 col-md-5 form-group">
+      <label class="font-weight-bold" for="search-skill">Competenze</label>
+      <input class="form-control form-control-sm" name="search-skill" id="search-skill"
+             [(ngModel)]="filtering.skill">
+    </div>
+    <div class="col-12 col-md-2 form-group">
+      <button type="submit" class="btn btn-black btn-sm btn-block">Cerca</button>
+    </div>
+  </div>
+</form>
+
+<div class="row mb-2" *ngIf="sorting !== null">
+  <div class="col text-center font-weight-bold">
+    <span class="text-cyan">Ordina competenze:</span> {{ sorting.display }}
+  </div>
+</div>
+
+<table class="table table-data m-0">
+  <thead>
+    <tr>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting?.prop === 'name'"
+                (click)="changeSorting('name', 'nome')">&nbsp;</button>
+      </th>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting?.prop === 'parentName'"
+                (click)="changeSorting('parentName', 'nome genitore')">&nbsp;</button>
+      </th>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting?.prop === 'request'"
+                (click)="changeSorting('request', 'verificata')">&nbsp;</button>
+      </th>
+      <th>
+        <button type="button" class="btn btn-link"
+                [class.active]="sorting?.prop === 'usersCount'"
+                (click)="changeSorting('usersCount', 'numero utenti')">&nbsp;</button>
+      </th>
+      <th><!-- delete --></th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let skill of skills; let idx = index">
+      <tr [class.active]="skill.showing" (click)="openSkill(skill, idx)">
+        <td class="text-center"><div>{{ skill.name }}</div></td>
+        <td class="text-center"><div>{{ skill.parentName }}</div></td>
+        <td class="text-center"><div>{{ skill.verifiedTxt }}</div></td>
+        <td class="table-col-small-with-icon">
+          <div>
+            <span><i class="sos-icon wish"></i></span>
+            <span>{{ skill.usersCount | number }}</span>
+          </div>
+        </td>
+        <td class="p-0 table-col-small">
+          <button type="button" class="btn btn-black w-100 h-100"
+                  (click)="deleteSkill($event, skill, idx)">
+            <i class="sos-icon skull"></i>
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="skill.showing | async as withUser" class="opened-row">
+        <td colspan="5">
+          <form autocomplete="off" #form="ngForm" (submit)="saveSkill(skill)">
+            <div class="row">
+              <div class="col-4">
+                <div>Utenti:</div>
+                <ul class="list-unstyled users-list">
+                  <li *ngFor="let u of withUser.users; let uIdx = index">
+                    <button type="button" class="btn btn-link"
+                            (click)="unlinkUser(skill, withUser.users, uIdx)">
+                      <i class="sos-icon skull"></i>
+                    </button>
+                    <a [routerLink]="['/users', u.id]" queryParamsHandling="preserve">
+                      {{ u.firstName }} {{ u.lastName }}</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-4">
+                <ng-container *ngIf="skill.request; else verifiedTpl">
+                  <div>Questa skill non è verificata:</div>
+                  <div>
+                    <button class="btn btn-link text-right-arrow"
+                            (click)="confirmSkill(skill, true)">
+                      Verifica skill
+                    </button>
+                  </div>
+                </ng-container>
+                <ng-template #verifiedTpl>
+                  <div>Questa skill è verificata:</div>
+                  <div>
+                    <button class="btn btn-link text-right-arrow"
+                            (click)="confirmSkill(skill, false)">
+                      Annulla verifica
+                    </button>
+                  </div>
+                </ng-template>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="skill-name-{{idx}}">Nome:</label>
+                  <input
+                    type="text" class="form-control form-control-sm"
+                    #nameElm="ngModel" [class.is-invalid]="nameElm.invalid"
+                    [disabled]="skill.saving"
+                    [(ngModel)]="skill.editable.name" required [minlength]="3"
+                    name="skill-name-{{idx}}" id="skill-name-{{idx}}">
+                </div>
+                <div class="form-group">
+                  <label for="skill-parent-{{idx}}">Genitore:</label>
+                  <div class="dropdown combobox">
+                    <input
+                      type="text" [value]="skill.editable.parent?.name || ''"
+                      class="form-control form-control-sm" [disabled]="skill.saving" readonly
+                      id="skill-parent-{{idx}}" name="skill-parent-{{idx}}"
+                      data-toggle="dropdown" data-display="static">
+                    <div class="dropdown-menu caret" id="skill-parent-{{idx}}-dropdown"
+                         (keydown)="parentDropdown$[skill.id].nav.next($event.which)">
+                      <!--suppress HtmlFormInputWithoutLabel -->
+                      <input type="text" class="form-control form-control-sm" #parentSearch
+                             (keyup)="parentDropdown$[skill.id].search.next(parentSearch.value)">
+                      <div class="dropdown-item" tabindex="0"
+                           (click)="setParent(skill)">Nessun genitore</div>
+                      <div class="dropdown-item"
+                           *ngFor="let s of skill.foundSkills" tabindex="0"
+                           (click)="setParent(skill, s)">{{ s.name }}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <button type="submit" class="btn btn-black btn-sm"
+                          [disabled]="form.invalid || skill.saving">Salva</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

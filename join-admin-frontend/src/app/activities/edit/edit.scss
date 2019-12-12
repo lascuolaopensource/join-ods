@@ -1,0 +1,17 @@
+@import "../../../variables";
+
+
+label {
+  font-weight: bold;
+  &:before {
+    content: $right-arrow;
+    margin-right: map_get($spacers, 2);
+  }
+}
+
+.form-check, .btn-group-toggle {
+  & label:before {
+    content: none;
+    margin-right: initial;
+  }
+}

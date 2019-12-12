@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col">
+
+    <div class="row mb-5">
+      <div class="col-8">
+        <h3 class="font-weight-bold">{{ activity.title }}: <small>lista iscritti</small></h3>
+      </div>
+    </div>
+
+    <div class="card card-outline-secondary" id="ideas-card">
+      <table class="table table-bordered table-hover m-0">
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Nome</td>
+            <td>E-mail</td>
+            <td>Metodo di pagamento</td>
+            <td>CRO / Transazione</td>
+            <td>Verificata</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sub of subscriptions; index as idx">
+            <td>
+              <a [routerLink]="['/users', sub.user.id]">{{ sub.user.id }}</a>
+            </td>
+            <td>
+              <a [routerLink]="['/users', sub.user.id]">
+                {{ sub.user.firstName }} {{ sub.user.lastName }}
+              </a>
+            </td>
+            <td>{{ sub.user.email }}</td>
+            <td>{{ sub.subscription.paymentMethod }}</td>
+            <td>{{ sub.subscription.cro || sub.subscription.transactionId }}</td>
+            <td>{{ sub.subscription.verified }}</td>
+            <td>
+              <button type="button" class="btn btn-sm btn-sos-magenta"
+                      (click)="verifySubscription(sub.user.id, idx, true)"
+                      *ngIf="sub.subscription.verified === false">Verifica pagamento</button>
+              <button type="button" class="btn btn-sm btn-sos-magenta"
+                      (click)="verifySubscription(sub.user.id, idx, false)"
+                      *ngIf="sub.subscription.verified === true">Rimuovi verifica</button>
+              <button type="button" class="btn btn-sm btn-sos-magenta"
+                      (click)="deleteSubscription(sub.user.id, idx)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

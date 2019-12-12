@@ -1,0 +1,401 @@
+<div class="container">
+
+  <form #activityForm="ngForm" (submit)="saveActivity($event)">
+    <div class="form-row">
+      <div class="form-group col-4">
+        <label for="activity-language">Lingua</label>
+        <select class="form-control" #langOpt="ngModel" [(ngModel)]="selectedLanguage" (change)="languageChanged(langOpt.value)"
+                name="activity-language" id="activity-language">
+          <option *ngFor="let lang of supportedLanguages" [value]="lang">
+            {{ lang }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group col-8">
+        <label for="activity-title">Titolo ({{ selectedLanguage }})</label>
+        <input type="text" class="form-control" #title="ngModel" [(ngModel)]="activity.title" required
+               [class.is-invalid]="title.invalid" name="activity-title" id="activity-title" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-4">
+        <label for="activity-level">Livello</label>
+        <select class="form-control" #level="ngModel" [(ngModel)]="activity.level"
+                [class.is-invalid]="level.invalid" id="activity-level" name="activity-level">
+          <option [value]="null"></option>
+          <option *ngFor="let level of enums.enumerateEnum(enums.levels)" [value]="enums.levels[level]">
+            {{ level }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group col-8">
+        <label for="activity-type">Tipo attività</label>
+        <select class="form-control" #activityType="ngModel" [(ngModel)]="activity.activityType" required
+                [class.is-invalid]="activityType.invalid" name="activity-type" id="activity-type">
+          <option *ngFor="let type of enums.enumerateEnum(activityTypes)" [value]="activityTypes[type]">
+            {{ type }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-4" *ngIf="activity.type === 'teach'">
+        <label for="activity-teach-category">Categoria didattica</label>
+        <select class="form-control" #teachCategory="ngModel" [(ngModel)]="activity.teachCategory" required
+                [class.is-invalid]="teachCategory.invalid" name="activity-teach-category" id="activity-teach-category">
+          <option *ngFor="let category of teachCategories" [value]="category">
+            {{ category.toUpperCase() }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group col-4">
+        <label for="activity-costs">Costo</label>
+        <input type="number" class="form-control" step="0.01" min="0" #cost="ngModel" [(ngModel)]="activity.costs"
+               [required]="activity.payments" [class.is-invalid]="cost.invalid"
+               name="activity-costs" id="activity-costs" />
+      </div>
+
+      <div class="form-group col-4" [class.col-8]="activity.type !== 'teach'">
+        <label for="activity-deadline">Ultimo giorno utile iscrizioni</label>
+        <div class="form-row">
+          <div class="col-8" [class.col-12]="activity.type === 'teach'">
+            <input type="date" class="form-control" #deadline="ngModel" [(ngModel)]="deadlineString"
+                   (change)="setDeadlineDate()" [required]="activity.payments || activity.type === 'teach'"
+                   [class.is-invalid]="deadline.invalid" name="activity-deadline" id="activity-deadline" />
+          </div>
+          <div class="col-4" *ngIf="activity.type !== 'teach'">
+            <p *ngIf="activity.deadline">Iscrizioni <b>attive</b></p>
+            <p *ngIf="!activity.deadline">Iscrizioni <b>non attive</b></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row mt-5">
+      <div class="form-group col-6">
+        <label class="h5">Pagamenti</label>
+        <div class="btn-group-toggle">
+          <label class="btn btn-yellow-toggle" [class.active]="activity.payments">
+            <input type="checkbox" [(ngModel)]="activity.payments"
+                   name="activity-payments" id="activity-payments" />
+            <ng-container *ngIf="activity.payments; else noPaymentsTpl">
+              Pagamenti attivi</ng-container>
+            <ng-template #noPaymentsTpl>
+              Pagamenti non attivi</ng-template>
+          </label>
+        </div>
+      </div>
+      <div class="form-group col-3">
+        <label for="activity-min-participants">Min. partecipanti</label>
+        <input type="number" class="form-control" min="0" #minParticipants="ngModel" [(ngModel)]="activity.minParticipants"
+               [class.is-invalid]="minParticipants.invalid" name="activity-min-participants" id="activity-min-participants" />
+      </div>
+      <div class="form-group col-3">
+        <label for="activity-max-participants">Max. partecipanti</label>
+        <input type="number" class="form-control" [min]="activity.minParticipants" [minValue]="activity.minParticipants"
+               #maxParticipants="ngModel" [(ngModel)]="activity.maxParticipants"
+               [class.is-invalid]="maxParticipants.invalid" name="activity-max-participants" id="activity-max-participants" />
+      </div>
+    </div>
+
+    <div class="form-row mt-5">
+      <label class="col">Cover pic</label>
+      <div class="col-4">
+        <sos-admin-pic-upload
+          [picture]="activity.coverPic.url"
+          (pictureChange)="coverPicChanged($event)">
+        </sos-admin-pic-upload>
+      </div>
+    </div>
+
+    <fieldset class="form-group my-5">
+      <label class="h5" for="gallery-name">Galleria immagini</label>
+      <div class="form-row">
+        <div class="form-group col-4">
+          <input type="text" class="form-control" #galleryName="ngModel" [(ngModel)]="activity.gallery.name" required
+                 [class.is-invalid]="galleryName.invalid" name="gallery-name" id="gallery-name" placeholder="Nome galleria" />
+        </div>
+        <div class="form-group col">
+          <button type="button" class="btn btn-sm btn-black text-upper-bold"
+                  (click)="addNewImage()">Aggiungi immagine</button>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-4 mb-2" *ngFor="let image of activity.gallery.images; let idx = index" [hidden]="image['delete']">
+          <sos-admin-pic-upload
+            [picture]="image.url"
+            (pictureChange)="imageGalleryChanged(image, $event)"
+            [removable]="true"
+            (removeIt)="removeImage(idx)">
+          </sos-admin-pic-upload>
+        </div>
+      </div>
+    </fieldset>
+
+    <sos-admin-activity-topics
+      [topics]="activity.topics"
+      [editing]="editing">
+    </sos-admin-activity-topics>
+
+    <div class="form-group">
+      <label for="activity-description">Descrizione ({{ selectedLanguage }})</label>
+      <textarea class="form-control" rows="10" #description="ngModel" [(ngModel)]="activity.description" required
+                [class.is-invalid]="description.invalid" name="activity-description" id="activity-description"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="activity-program">Programma ({{ selectedLanguage }})</label>
+      <textarea class="form-control" rows="10" #program="ngModel" [(ngModel)]="activity.program" required
+                [class.is-invalid]="program.invalid" name="activity-program" id="activity-program"></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group" [class.col-6]="activity.type === 'teach'" [class.col-12]="activity.type !== 'teach'">
+        <label for="activity-output-type">Tipo di output ({{ selectedLanguage }})</label>
+        <input type="text" class="form-control" #outputType="ngModel" [(ngModel)]="activity.outputType" required
+               [class.is-invalid]="outputType.invalid" name="activity-output-type" id="activity-output-type" />
+      </div>
+      <div class="form-group col-6" *ngIf="activity.type === 'teach'">
+        <label for="activity-output-description">Descrizione output ({{ selectedLanguage }})</label>
+        <textarea class="form-control" rows="8" #outputDesc="ngModel" [(ngModel)]="activity.outputDescription" required
+                  [class.is-invalid]="outputDesc.invalid" name="activity-output-description" id="activity-output-description">
+        </textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Audience</label>
+      <div class="form-row">
+        <div class="col-6 col-lg-4 col-xl-3 mb-2" *ngFor="let audience of audienceArray; let idx = index">
+          <div class="btn-group-toggle">
+            <label class="btn btn-yellow-toggle w-100" [class.active]="audience.selected">
+              <input type="checkbox" [(ngModel)]="audience.selected"
+                     name="activity-audience-{{idx}}" id="activity-audience-{{idx}}" />
+              {{ enums.audienceTypes[audience.audience] }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mt-5">
+      <label class="h5">Frequenza attività</label>
+      <div class="btn-group btn-group-toggle d-flex">
+        <label class="btn btn-yellow-toggle flex-grow-1" [class.active]="isRecurring">
+          <input type="radio" (click)="changeScheduleType(true)" [checked]="isRecurring"
+                 name="activity-schedule-recurring" id="activity-schedule-recurring" />
+          <span class="form-check-description">Attività ricorrente</span>
+        </label>
+        <label class="btn btn-yellow-toggle flex-grow-1" [class.active]="!isRecurring">
+          <input type="radio" (click)="changeScheduleType(false)" [checked]="!isRecurring"
+                 name="activity-schedule-recurring" id="activity-schedule-finite" />
+          <span class="form-check-description">Attività non ricorrente</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-row" *ngIf="isRecurring">
+      <div class="form-group col-3">
+        <label for="activity-schedule-recurring-hours">Ore</label>
+        <input type="number" class="form-control" min="1" #recurringHours="ngModel"
+               [(ngModel)]="activity.schedule.hours" required minValue="1"
+               [class.is-invalid]="recurringHours.invalid"
+               name="activity-schedule-recurring-hours" id="activity-schedule-recurring-hours" />
+      </div>
+      <div class="form-group col-3">
+        <label for="activity-schedule-recurring-days">Giorni</label>
+        <input type="number" class="form-control" min="1" #recurringDays="ngModel"
+               [(ngModel)]="activity.schedule.days" required minValue="1"
+               [class.is-invalid]="recurringDays.invalid"
+               name="activity-schedule-recurring-days" id="activity-schedule-recurring-days" />
+      </div>
+      <div class="form-group col-3">
+        <label for="activity-schedule-recurring-every">Ogni</label>
+        <input type="number" class="form-control" min="1" #recurringEvery="ngModel"
+               [(ngModel)]="activity.schedule.every" required minValue="1"
+               [class.is-invalid]="recurringEvery.invalid"
+               name="activity-schedule-recurring-every" id="activity-schedule-recurring-every" />
+      </div>
+      <div class="form-group col-3">
+        <label for="activity-schedule-recurring-entity">Ricorrenza</label>
+        <select type="number" class="form-control" #recurringEntity="ngModel"
+                [(ngModel)]="activity.schedule.entity" required
+                [class.is-invalid]="recurringEntity.invalid"
+                name="activity-schedule-recurring-entity" id="activity-schedule-recurring-entity">
+          <option *ngFor="let entity of enums.enumerateEnum(enums.recurringEntities)"
+                  [value]="enums.recurringEntities[entity]">
+            {{ entity }}
+          </option>
+        </select>
+      </div>
+      <div class="col-12 text-center text-cyan font-weight-bold">
+        <sos-admin-recurring-meetings-display
+          [meetings]="activity.schedule">
+        </sos-admin-recurring-meetings-display>
+      </div>
+    </div>
+    <div class="form-row" *ngIf="!isRecurring">
+      <div class="form-group col-4">
+        <label for="activity-total-days">Giorni totali</label>
+        <input type="number" class="form-control" min="1" #totalDays="ngModel"
+               [(ngModel)]="activity.schedule.totalDays" required minValue="1"
+               [class.is-invalid]="totalDays.invalid" name="activity-total-days" id="activity-total-days" />
+      </div>
+      <div class="form-group col-4">
+        <label for="activity-total-hours">Ore totali</label>
+        <input type="number" class="form-control" min="1" #totalHours="ngModel"
+               [(ngModel)]="activity.schedule.totalHours" required minValue="1"
+               [class.is-invalid]="totalHours.invalid" name="activity-total-hours" id="activity-total-hours" />
+      </div>
+    </div>
+
+    <fieldset class="form-group mt-5" [class.is-invalid]="activity.dates.length === 0">
+      <label class="h5">Appuntamenti</label>
+      <div class="form-group">
+        <label for="activity-start-time">Inizio attività (determina la visualizzazione in "in programma")</label>
+        <input type="datetime-local" class="form-control" [(ngModel)]="startTimeStr"
+               id="activity-start-time" name="activity-start-time" />
+      </div>
+      <div class="form-row" *ngFor="let date of activity.dates; let idx = index" [hidden]="date['delete']">
+        <div class="form-group col-3">
+          <label for="activity-dates-date-{{idx}}">Data</label>
+          <input type="date" class="form-control" #dateDate="ngModel" [(ngModel)]="date.dateString" required
+                 [class.is-invalid]="dateDate.invalid" (change)="fixDate(date)"
+                 name="activity-dates-date-{{idx}}" id="activity-dates-date-{{idx}}" />
+        </div>
+        <div class="form-group col-3">
+          <label for="activity-dates-start-time-{{idx}}">Orario inizio</label>
+          <input type="time" class="form-control" #dateStart="ngModel" [(ngModel)]="date.startTime" required
+                 [class.is-invalid]="dateStart.invalid"
+                 pattern="[0-9]{2}:[0-9]{2}"
+                 name="activity-dates-start-time-{{idx}}" id="activity-dates-start-time-{{idx}}" />
+        </div>
+        <div class="form-group col-3">
+          <label for="activity-dates-end-time-{{idx}}">Orario fine</label>
+          <input type="time" class="form-control" #dateEnd="ngModel" [(ngModel)]="date.endTime" required
+                 [class.is-invalid]="dateEnd.invalid"
+                 pattern="[0-9]{2}:[0-9]{2}"
+                 name="activity-dates-end-time-{{idx}}" id="activity-dates-end-time-{{idx}}" />
+        </div>
+        <div class="form-group col-3 align-self-end text-right">
+          <button type="button" class="btn btn-sm btn-outline-black text-upper-bold"
+                  (click)="removeDate(idx)">Elimina</button>
+        </div>
+      </div>
+      <div class="form-group text-right">
+        <button type="button" class="btn btn-sm btn-black text-upper-bold"
+                (click)="addDate()">Aggiungi</button>
+      </div>
+    </fieldset>
+
+    <fieldset class="form-group mt-5">
+      <div><label class="h5">{{ guestsTxt }}</label></div>
+      <form class="form-group">
+        <label for="activity-guest-search">
+          Aggiungi {{ guestsTxt.toLowerCase() }} (cerca fra gli utenti iscritti)</label>
+        <div class="form-row">
+          <div class="col-8">
+            <input type="text" class="form-control" #searchingUser
+                   (keyup)="searchingUser$.emit(searchingUser.value)"
+                   name="activity-guest-search" id="activity-guest-search" />
+          </div>
+          <div class="col-4">
+            <button type="button" class="btn btn-black font-weight-bold"
+                    [disabled]="!searchingUser.value || searchingUser.value.length < 3"
+                    (click)="addGuest(searchingUser.value)">
+              <span class="text-uppercase">Aggiungi</span>
+              <small>{{ searchingUser.value }}</small>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div *ngIf="foundUsers$ | async as foundUsers" class="form-group">
+        <ul *ngIf="foundUsers.length > 0; else noUsersTpl" class="list-inline">
+          <li class="list-inline-item mb-2" *ngFor="let user of foundUsers">
+            <button type="button" class="btn btn-sm btn-black font-weight-bold"
+                    (click)="addGuest(user)">
+              <i class="sos-icon wish"></i>
+              <small>{{ user.firstName }} {{ user.lastName }}</small>
+            </button>
+          </li>
+        </ul>
+        <ng-template #noUsersTpl>Nessun utente trovato...</ng-template>
+      </div>
+
+      <div class="form-row mt-3" *ngFor="let guest of activity.guests; let idx = index" [hidden]="guest['delete']">
+        <div class="col-6">
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label for="activity-guest-first-name-{{idx}}">Nome</label>
+              <input type="text" class="form-control" #guestName="ngModel" [(ngModel)]="guest.firstName"
+                     required [class.is-invalid]="guestName.invalid"
+                     name="activity-guest-first-name-{{idx}}" id="activity-guest-first-name-{{idx}}" />
+            </div>
+            <div class="form-group col-6">
+              <label for="activity-guest-last-name-{{idx}}">Cognome</label>
+              <input type="text" class="form-control" #guestLast="ngModel" [(ngModel)]="guest.lastName"
+                     required [class.is-invalid]="guestLast.invalid"
+                     name="activity-guest-last-name-{{idx}}" id="activity-guest-last-name-{{idx}}" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="activity-guest-title-{{idx}}">Qualifica ({{ selectedLanguage }})</label>
+            <input type="text" class="form-control" #guestTitle="ngModel" [(ngModel)]="guest.title"
+                   required [class.is-invalid]="guestTitle.invalid"
+                   name="activity-guest-title-{{idx}}" id="activity-guest-title-{{idx}}" />
+          </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-sm btn-black text-upper-bold"
+                    (click)="removeGuest(idx)">Rimuovi</button>
+            <a *ngIf="guest.userId" class="btn btn-sm btn-black text-upper-bold"
+               target="_blank" [routerLink]="['/users', guest.userId]">Vedi profilo</a>
+            <button *ngIf="guest.userId" type="button"
+                    class="btn btn-sm btn-black text-upper-bold d-block mt-2"
+                    (click)="copyFromProfile(guest)">
+              Copia da profilo utente
+            </button>
+          </div>
+        </div>
+        <div class="form-group col-6">
+          <label for="activity-guest-bio-{{idx}}">Bio ({{ selectedLanguage }})</label>
+          <textarea class="form-control" rows="8" #guestBio="ngModel" [(ngModel)]="guest.bio" required
+                    [class.is-invalid]="guestBio.invalid"
+                    name="activity-guest-bio-{{idx}}" id="activity-guest-bio-{{idx}}"></textarea>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="form-row mt-5">
+      <div class="col-6">
+        <sos-admin-activity-skills
+          labelText="Competenze richieste"
+          searchId="skills-search-required"
+          [skills]="activity.requiredSkills"
+          [editing]="editing">
+        </sos-admin-activity-skills>
+      </div>
+      <div class="col-6">
+        <sos-admin-activity-skills
+          labelText="Competenze acquisite"
+          searchId="skills-search-acquired"
+          [skills]="activity.acquiredSkills"
+          [editing]="editing">
+        </sos-admin-activity-skills>
+      </div>
+    </div>
+
+    <div class="form-group text-center mt-5">
+      <button type="submit" class="btn btn-lg btn-yellow font-freak font-weight-bold"
+              [disabled]="sendingModel || activityForm.invalid || hasInvalidData">
+        {{ submitTxt }} attività
+      </button>
+    </div>
+  </form>
+
+</div>
