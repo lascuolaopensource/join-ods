@@ -22,7 +22,7 @@ signUp.emailSent = A breve riceverai un email all''indirizzo <b>{0}</b> contenen
 signUp.signIn = Have you already signed up?
 
 signIn.title = Sign in page
-signIn.top.title = La Scuola Open Source
+signIn.top.title = Open Design School
 signIn.top.content = Sign up to join activities <br />\
   Before signing in, read our <a href="{0}">guidelines</a>.
 signIn.main.title = Sign in
