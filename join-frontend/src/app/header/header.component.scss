@@ -8,12 +8,14 @@ $navbar-elm-height: 1.5em;
 }
 
 .navbar {
+  margin-bottom:1em;
   .navbar-brand {
     font-family: FreakGrotesk, sans-serif;
+    text-transform: lowercase;
     font-size: $h1-font-size;
     padding: 0;
     height: $navbar-elm-height;
-    letter-spacing: -5px;
+    letter-spacing: -20px;
   }
   .navbar-sos-toggler {
     border: none;
@@ -23,6 +25,7 @@ $navbar-elm-height: 1.5em;
     height: $navbar-elm-height;
     // this has to be here and not in the icon's :before to align toggler with brand
     font-family: FreakGrotesk, sans-serif;
+    font-weight: 100!important;
     .navbar-toggler-icon {
       height: auto;
       width: auto;
@@ -80,7 +83,7 @@ $navbar-elm-height: 1.5em;
   }
   .btn-link, a {
     color: white;
-    font-weight: bold;
+    font-weight: 100;
   }
   .nav-divider {
     margin-bottom: map_get($spacers, 3);
@@ -89,7 +92,7 @@ $navbar-elm-height: 1.5em;
     font-size: $font-size-sm;
     &:before {
       content: $right-arrow;
-      font-weight: bold;
+      font-weight: 100;
     }
     &:hover {
       a, .btn-link {

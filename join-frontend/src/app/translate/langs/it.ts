@@ -1,25 +1,25 @@
 export const LANG_IT_VALUES = {
   'nav.home': 'Home',
-  'nav.profile': 'Profilo',
-  'nav.favorites': 'Preferiti',
-  'nav.bazaar': 'Idee',
-  'nav.activities': 'Attività (Corsi, Eventi, Progetti in corso)',
+  'nav.profile': 'Il mio profilo',
+  'nav.favorites': 'I miei preferiti',
+  'nav.bazaar': '',
+  'nav.activities': 'Attività (corsi, eventi, progetti in corso)',
   'nav.membership': 'Membership',
   'nav.propose': 'Proponi un\'idea',
-  'nav.fablab': 'Fablab/Spazi',
+  'nav.fablab': 'Laboratorio',
   'nav.it': 'Italiano',
   'nav.en': 'English',
   'nav.rules': 'Regolamento',
   'nav.logout': 'Logout',
-  'nav.login': 'Login',
+  'nav.login': 'Join',
 
-  'loading.load': 'Loading...',
-  'loading.login': 'Login',
+  'loading.load': 'Caricamento...',
+  'loading.login': 'Accedi',
 
   'errorPage.title': 'Errore - Open Design School',
   'errorPage.text': 'ERROR {{code}}',
 
-  'favorites.title': 'Preferiti - Open Design School',
+  'favorites.title': 'I tuoi preferiti - Open Design School',
   'favorites.heading': `I tuoi <strong>preferiti</strong>`,
   'favorites.users': 'Persone',
   'favorites.ideas': 'Idee e progetti',
@@ -27,7 +27,7 @@ export const LANG_IT_VALUES = {
 
   'home.title': 'Open Design School',
 
-  'home.welcome.title': 'Benvenuto a bordo! Arrrgh!',
+  'home.welcome.title': 'Benvenuto a bordo!',
   'home.welcome.body': `
     Il <b>Gestionale per Nuove Istituzioni</b><br />
     Connette <b>persone, idee, progetti e competenze</b><br />
@@ -66,8 +66,8 @@ export const LANG_IT_VALUES = {
   'profile.title.me': 'Il mio profilo - Open Design School',
   'profile.edit.firstName': 'Nome',
   'profile.edit.lastName': 'Cognome',
-  'profile.edit.title': 'Che competenze hai?',
-  'profile.edit.bio': 'Descrivi quello che fai',
+  'profile.edit.title': 'La tua qualifica',
+  'profile.edit.bio': 'La tua bio',
   'profile.edit.skills': 'making, coding, design...',
   'profile.edit.telephone': '+39 123456789',
   'profile.edit.email': 'user@email.com',
@@ -87,16 +87,16 @@ export const LANG_IT_VALUES = {
 
   'profile.skill.add': 'Aggiungi',
 
-  'profile.reservations': 'Prenotazioni Fablab',
-  'profile.reservations.title': 'Prenotazioni macchine FabLab',
+  'profile.reservations': 'Prenotazioni Laboratorio',
+  'profile.reservations.title': 'Prenotazioni macchine',
   'profile.reservations.machine': 'Macchina',
   'profile.reservations.operator': 'Operatore',
   'profile.reservations.dates': 'Date',
   'profile.reservations.totalPrice': 'Costo totale',
 
 
-  'bazaar.title': 'Idee - Open Design School',
-  'bazaar.heading': `<strong>idee</strong>`,
+  'bazaar.title': 'Bazaar delle Idee - Open Design School',
+  'bazaar.heading': `<strong>Bazaar</strong> delle <strong>idee</strong>`,
   'bazaar.subhead': 'Proponi, cerca, discuti un\'idea o un progetto.',
 
   'bazaar.filters.framework.teaching_framework': 'Didattica',
@@ -130,7 +130,7 @@ export const LANG_IT_VALUES = {
 
   'bazaar.filters.teachActivity.lecture_performance': 'Lezioni performance',
   'bazaar.filters.teachActivity.labs_seminary': 'Laboratori - Seminari',
-  'bazaar.filters.teachActivity.xyz_format': 'Format XYZ',
+  'bazaar.filters.teachActivity.xyz_format': 'Format orizzontali',
   'bazaar.filters.teachActivity.cultural_event': 'Eventi culturali',
   'bazaar.filters.teachActivity.vertical_format': 'Format verticali',
   'bazaar.filters.teachActivity.machine_usage': 'Utilizzo macchine',
@@ -176,7 +176,7 @@ export const LANG_IT_VALUES = {
   'bazaar.removeFavorites': 'rimuovi dai preferiti',
   'bazaar.edit': 'modifica',
 
-  'bazaar.details.pageTitle': '{{title}} - Idee - Open Design School',
+  'bazaar.details.pageTitle': '{{title}} - Bazaar delle Idee - Open Design School',
   'bazaar.details.level': 'Livello:',
   'bazaar.details.topics': 'Tags:',
   'bazaar.details.score': 'Impatto:',
@@ -220,7 +220,7 @@ export const LANG_IT_VALUES = {
 
   'bazaar.propose.teach.title': 'Voglio insegnare - Open Design School',
   'bazaar.propose.teach.heading': `Voglio <strong>insegnare</strong>`,
-  'bazaar.propose.teach.subhead': `Raccontaci il corso che vuoi proporre!`,
+  'bazaar.propose.teach.subhead': `Raccontaci la tua idea!`,
 
   'bazaar.propose.event.title': 'Proponi un evento - Open Design School',
   'bazaar.propose.event.heading': `<strong>Intrattenimento</strong>`,
@@ -231,16 +231,16 @@ export const LANG_IT_VALUES = {
   'bazaar.propose.research.subhead': `Raccontaci la tua idea!`,
 
   'bazaar.propose.saved.title': `Abbiamo ricevuto <strong>la tua proposta</strong>`,
-  'bazaar.propose.saved.subtitle': `Puoi trovarla nella sezione <strong>IDEE</strong>`,
+  'bazaar.propose.saved.subtitle': `Puoi trovarla nel Bazaar delle idee`,
   'bazaar.propose.saved.bazaar': `
-    <i class="sos-icon comment text-white"></i> Vai alla sezione idee
+    <i class="sos-icon comment text-white"></i> Vai al bazaar
   `,
   'bazaar.propose.saved.edit': `
     <i class="sos-icon edit text-white"></i> Modifica la tua idea
   `,
 
   'bazaar.propose.title': 'Titolo dell\'attività',
-  'bazaar.propose.locationSOS': 'L\'attività si svolge alla Open Design School',
+  'bazaar.propose.locationSOS': 'L\'attività si svolge alla ODS',
   'bazaar.propose.locationCustom': 'L\'attività si svolge altrove',
   'bazaar.propose.activityType': 'In quali ambiti rientra l\'attività proposta?',
   'bazaar.propose.frameworks': 'Tipologia di attività',
@@ -321,7 +321,7 @@ export const LANG_IT_VALUES = {
   'bazaar.comments.error': 'Commento non salvato correttamente...',
   'bazaar.comments.send': 'Invia',
 
-  'membership.title': 'La tua membership SOS - Open Design School',
+  'membership.title': 'La tua membership ODS - Open Design School',
   'membership.heading': 'Membership',
   'membership.type': 'Tipologia',
   'membership.requestNew': 'ATTIVA',
@@ -356,7 +356,7 @@ export const LANG_IT_VALUES = {
 
   'activities.activityTypes.teach.lecture_performance': 'Lezioni',
   'activities.activityTypes.teach.labs_seminary': 'Laboratori',
-  'activities.activityTypes.teach.xyz_format': 'Format XYZ',
+  'activities.activityTypes.teach.xyz_format': 'Format orizzontali',
   'activities.activityTypes.teach.cultural_event': 'Eventi culturali',
   'activities.activityTypes.teach.vertical_format': 'Format verticali',
   'activities.activityTypes.teach.machine_usage': 'Utilizzo macchine',
@@ -436,7 +436,7 @@ export const LANG_IT_VALUES = {
 
   'activity.teachEvent.subscribe': 'Iscriviti',
   'activity.teachEvent.paypal': 'PayPal',
-  'activity.teachEvent.credit': 'Carta di credito',
+  'activity.teachEvent.credit': 'Carte',
   'activity.teachEvent.wire': 'Bonifico',
   'activity.teachEvent.credit.number': 'Numero di carta',
   'activity.teachEvent.credit.cvv': 'CVV',
@@ -492,12 +492,12 @@ export const LANG_IT_VALUES = {
 
 
   'paymentMethods.paypal': 'PayPal',
-  'paymentMethods.credit_card': 'Carta di credito',
+  'paymentMethods.credit_card': 'Carte',
   'paymentMethods.wire_transfer': 'Bonifico',
 
 
-  'fablab.title': 'FabLab - Open Design School',
-  'fablab.heading': 'Macchinari/Spazi',
+  'fablab.title': 'Laboratorio - Open Design School',
+  'fablab.heading': 'Macchinari',
 
   'fablab.machine': 'Macchinario:',
   'fablab.machine.workArea': 'Area di lavoro',
@@ -568,6 +568,6 @@ export const LANG_IT_VALUES = {
   'util.schedule.recurring.year': 'anno',
   'util.schedule.recurring.every': 'ogni',
 
-  'true': 'Sì',
+  'true': 'Si',
   'false': 'No'
 };

@@ -37,7 +37,7 @@ export abstract class BazaarAbstractPropose extends AbstractComponent
     this.titleService.setTitle(`bazaar.propose.${this.ideaType}.title`);
 
     this.rootStyleService.set({
-      'background-color': '#12c8bb'
+      'background-color': '#007850'
     });
 
     this.route.data.subscribe((data: { idea?: BazaarIdea, me: User }) => {

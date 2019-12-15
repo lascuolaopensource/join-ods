@@ -23,7 +23,7 @@ section {
     text-align: center;
     @include padding-x(map_get($spacers, 3));
     flex-grow: 0;
-    padding-top: .5rem;
+    padding-bottom: 5px;
     font-size: 1.8rem;
   }
 }

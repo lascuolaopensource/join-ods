@@ -62,8 +62,8 @@ export const LANG_EN_VALUES = {
   'card.activity.skills': 'Skills',
   'card.activity.type': 'Type',
 
-  'profile.title': '{{user}} - Open design Scholl',
-  'profile.title.me': 'My profile - Open design Scholl',
+  'profile.title': '{{user}} - Open Design School',
+  'profile.title.me': 'My profile - Open Design School',
   'profile.edit.firstName': 'First name',
   'profile.edit.lastName': 'Last name',
   'profile.edit.title': 'Your role',
@@ -95,7 +95,7 @@ export const LANG_EN_VALUES = {
   'profile.reservations.totalPrice': 'Total price',
 
 
-  'bazaar.title': 'Ideas bazaar - Open design Scholl',
+  'bazaar.title': 'Ideas bazaar - Open Design School',
   'bazaar.heading': `<strong>Ideas</strong> <strong>bazaar</strong>`,
   'bazaar.subhead': 'Submit, search, discuss an idea or a project',
 
@@ -176,7 +176,7 @@ export const LANG_EN_VALUES = {
   'bazaar.removeFavorites': 'remove from favorites',
   'bazaar.edit': 'modify',
 
-  'bazaar.details.pageTitle': '{{title}} - Ideas - Open design School',
+  'bazaar.details.pageTitle': '{{title}} - Ideas - Open Design School',
   'bazaar.details.level': 'Level:',
   'bazaar.details.topics': 'Tags:',
   'bazaar.details.score': 'Impact:',
@@ -214,19 +214,19 @@ export const LANG_EN_VALUES = {
   'bazaar.interact.favorites': 'Favorite',
   'bazaar.interact.comments': 'Comments',
 
-  'bazaar.propose.learn.title': 'I\'d like to learn - Open design School',
+  'bazaar.propose.learn.title': 'I\'d like to learn - Open Design School',
   'bazaar.propose.learn.heading': `I want to <strong>learn</strong>`,
   'bazaar.propose.learn.subhead': `Tell us what you'd like to learn!`,
 
-  'bazaar.propose.teach.title': 'I\'d like to teach - Open design School',
+  'bazaar.propose.teach.title': 'I\'d like to teach - Open Design School',
   'bazaar.propose.teach.heading': `I want to <strong>teach</strong>`,
   'bazaar.propose.teach.subhead': `Tell us what you'd like to teach!`,
 
-  'bazaar.propose.event.title': 'Propose an event - Open design School',
+  'bazaar.propose.event.title': 'Propose an event - Open Design School',
   'bazaar.propose.event.heading': `<strong>Entertainment</strong>`,
   'bazaar.propose.event.subhead': `Tell us your idea!`,
 
-  'bazaar.propose.research.title': 'Research Project - Open design School',
+  'bazaar.propose.research.title': 'Research Project - Open Design School',
   'bazaar.propose.research.heading': `<strong>Research</strong>project`,
   'bazaar.propose.research.subhead': `Tell us your idea!`,
 

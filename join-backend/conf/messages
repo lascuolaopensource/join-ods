@@ -64,11 +64,11 @@ rules.title = Regolamento
 mail.signUp.subject = Conferma l'indirizzo e-mail
 mail.signUp.hello = Ciao {0},\nabbiamo ricevuto una richiesta di registrazione associata alla tua email.
 mail.signUp.link = Se la richiesta è stata effettuata da te, conferma cliccando su questo link: {0}
-mail.signUp.end = Una volta fatto, potrai accedere alla piattaforma.\n\nLa Open Design School
+mail.signUp.end = Una volta fatto, potrai accedere alla piattaforma.\n\nOpen Design School
 
 mail.signUp.hello.html = Ciao {0},<br />abbiamo ricevuto una richiesta di registrazione associata alla tua email.
 mail.signUp.link.html = <b>Se la richiesta è stata effettuata da te, conferma cliccando su questo link:</b><br/><a href="{0}">{0}</a>
-mail.signUp.end.html = Una volta fatto, potrai accedere alla piattaforma.<br /><br />La Open Design School
+mail.signUp.end.html = Una volta fatto, potrai accedere alla piattaforma.<br /><br />Open Design School
 
 
 mail.changeEmail.subject = Conferma l'indirizzo e-mail

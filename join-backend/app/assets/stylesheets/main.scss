@@ -18,7 +18,6 @@ body {
 
 
 .btn {
-  
   &.btn-sos-doubled-blue {
     @include button-sos-doubled-variant($blue, $magenta, white);
   }
@@ -102,9 +101,11 @@ div.form-group{
 
 
 .navbar {
+  margin-bottom: 1em!important;
   .navbar-brand {
     font-family: FreakGrotesk, sans-serif;
     font-size: $h1-font-size;
+    letter-spacing: -20px!important;
   }
   .navbar-sos-toggler {
     border: none;
@@ -115,6 +116,7 @@ div.form-group{
       background-image: none;
       &:before {
         font-family: FreakGrotesk, sans-serif;
+        font-weight: 100!important;
         content: $navbar-toggler-icon;
       }
     }
@@ -211,16 +213,17 @@ div.form-group{
   #signin-top {
     text-align: center;
     p {
-      color: $cyan;
-      font-weight: bold;
+      color: black;
+      font-weight: normal;
       a {
-        color: $magenta;
+        color: $blue;
       }
     }
   }
   #signin-main {
     h2 {
       text-align: center;
+      margin-bottom: 1em;
     }
   }
 }
@@ -242,7 +245,7 @@ form {
     position: relative;
   }
   body, .navbar {
-    background-color: #9c9c9c;
+    background-color: #eeeeee;
   }
   main.container {
     text-align: center;
