@@ -321,7 +321,7 @@ export const LANG_IT_VALUES = {
   'bazaar.comments.error': 'Commento non salvato correttamente...',
   'bazaar.comments.send': 'Invia',
 
-  'membership.title': 'La tua membership SOS - La Scuola Open Source',
+  'membership.title': 'La tua membership SOS - Open Design School',
   'membership.heading': 'Membership',
   'membership.type': 'Tipologia',
   'membership.requestNew': 'ATTIVA',
