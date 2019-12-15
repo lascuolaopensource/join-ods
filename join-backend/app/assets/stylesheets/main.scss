@@ -18,6 +18,7 @@ body {
 
 
 .btn {
+  
   &.btn-sos-doubled-blue {
     @include button-sos-doubled-variant($blue, $magenta, white);
   }
@@ -34,7 +35,11 @@ body {
     @include button-variant($bg, $bg, darken($bg, 7.5%), darken($bg, 10%), black, darken($bg, 10%));
   }
 }
-
+div.form-group{
+  button.btn{
+    padding: .375rem .75rem 5px!important;
+  }
+}
 .font-freak {
   font-family: FreakGrotesk, sans-serif;
 }
