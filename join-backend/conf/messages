@@ -22,7 +22,7 @@ signUp.emailSent = A breve riceverai un email all''indirizzo <b>{0}</b> contenen
 signUp.signIn = Sei già iscritto/a?
 
 signIn.title = Sign in page
-signIn.top.title = La Scuola Open Source
+signIn.top.title = Open Design School
 signIn.top.content = Registrati sulla piattaforma per partecipare alle attività.<br />\
   Prima di effettuare l''accesso, leggi il <a href="{0}">regolamento</a>.
 signIn.main.title = Accedi
@@ -64,7 +64,7 @@ rules.title = Regolamento
 mail.signUp.subject = Conferma l'indirizzo e-mail
 mail.signUp.hello = Ciao {0},\nabbiamo ricevuto una richiesta di registrazione associata alla tua email.
 mail.signUp.link = Se la richiesta è stata effettuata da te, conferma cliccando su questo link: {0}
-mail.signUp.end = Una volta fatto, potrai accedere alla piattaforma.\n\nLa Scuola Open Source
+mail.signUp.end = Una volta fatto, potrai accedere alla piattaforma.\n\nLa Open Design School
 
 mail.signUp.hello.html = Ciao {0},<br />abbiamo ricevuto una richiesta di registrazione associata alla tua email.
 mail.signUp.link.html = <b>Se la richiesta è stata effettuata da te, conferma cliccando su questo link:</b><br/><a href="{0}">{0}</a>
@@ -74,22 +74,22 @@ mail.signUp.end.html = Una volta fatto, potrai accedere alla piattaforma.<br /><
 mail.changeEmail.subject = Conferma l'indirizzo e-mail
 mail.changeEmail.hello = Attenzione {0},\nabbiamo ricevuto una richiesta di modifica per l'indirizzo email associato al tuo account.
 mail.changeEmail.link = Se la richiesta è stata effettuata da te, conferma cliccando su questo link: {0}
-mail.changeEmail.end = Una volta fatto, registreremo la modifica richiesta nel database.\n\nLa Scuola Open Source
+mail.changeEmail.end = Una volta fatto, registreremo la modifica richiesta nel database.\n\nOpen Design School
 
 mail.changeEmail.hello.html = Attenzione {0},<br />abbiamo ricevuto una richiesta di modifica per l''indirizzo email associato al tuo account.
 mail.changeEmail.link.html = <b>Se la richiesta è stata effettuata da te, conferma cliccando su questo link:</b><br/><a href="{0}">{0}</a>
-mail.changeEmail.end.html = Una volta fatto, registreremo la modifica richiesta nel database.<br /><br />La Scuola Open Source
+mail.changeEmail.end.html = Una volta fatto, registreremo la modifica richiesta nel database.<br /><br />Open Design School
 
 
 mail.resetPassword.subject = Conferma il cambio password
 mail.resetPassword.hello = Attenzione {0},\nabbiamo ricevuto una richiesta di modifica per la password associata al tuo account.
 mail.resetPassword.link = Se la richiesta è stata effettuata da te, conferma cliccando su questo link: {0}
-mail.resetPassword.end = Una volta fatto, potrai inserire la nuova password per il tuo account.\n\nLa Scuola Open Source
+mail.resetPassword.end = Una volta fatto, potrai inserire la nuova password per il tuo account.\n\nOpen Design School
 
 mail.resetPassword.hello.html = Attenzione {0},<br />abbiamo ricevuto una richiesta di modifica per la password associata al tuo account.
 mail.resetPassword.link.html = <b>Se la richiesta è stata effettuata da te, conferma cliccando su questo link:</b><br/><a href="{0}">{0}</a>
-mail.resetPassword.end.html = Una volta fatto, potrai inserire la nuova password per il tuo account.<br /><br />La Scuola Open Source
+mail.resetPassword.end.html = Una volta fatto, potrai inserire la nuova password per il tuo account.<br /><br />Open Design School
 
 
-errors.generic.title = Errore - La Scuola Open Source
+errors.generic.title = Errore - Open Design School
 errors.generic.text = ERROR {0}
