@@ -14,7 +14,10 @@
       margin-top: ($font-size-base * $line-height-base) + .5rem;    // .5rem is from bootstrap's reboot
     }
   }
-
+  span{
+    padding-bottom:15px;
+  }
+  
   #search-no-result {
     font-weight: bold;
   }
