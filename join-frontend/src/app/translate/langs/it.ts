@@ -1,33 +1,33 @@
 export const LANG_IT_VALUES = {
   'nav.home': 'Home',
-  'nav.profile': 'Il mio profilo',
-  'nav.favorites': 'I miei preferiti',
-  'nav.bazaar': 'Bazaar delle idee',
-  'nav.activities': 'Attività (corsi, eventi, progetti in corso)',
+  'nav.profile': 'Profilo',
+  'nav.favorites': 'Preferiti',
+  'nav.bazaar': 'Idee',
+  'nav.activities': 'Attività (Corsi, Eventi, Progetti in corso)',
   'nav.membership': 'Membership',
   'nav.propose': 'Proponi un\'idea',
-  'nav.fablab': 'Fablab',
+  'nav.fablab': 'Fablab/Spazi',
   'nav.it': 'Italiano',
   'nav.en': 'English',
   'nav.rules': 'Regolamento',
   'nav.logout': 'Logout',
-  'nav.login': 'Accedi',
+  'nav.login': 'Login',
 
   'loading.load': 'Loading...',
-  'loading.login': 'Accedi',
+  'loading.login': 'Login',
 
-  'errorPage.title': 'Errore - La Scuola Open Source',
+  'errorPage.title': 'Errore - Open Design School',
   'errorPage.text': 'ERROR {{code}}',
 
-  'favorites.title': 'I tuoi preferiti - La Scuola Open Source',
+  'favorites.title': 'Preferiti - Open Design School',
   'favorites.heading': `I tuoi <strong>preferiti</strong>`,
   'favorites.users': 'Persone',
   'favorites.ideas': 'Idee e progetti',
   'favorites.activities': 'Attività',
 
-  'home.title': 'La Scuola Open Source',
+  'home.title': 'Open Design School',
 
-  'home.welcome.title': 'Benvenuto a bordo!',
+  'home.welcome.title': 'Benvenuto a bordo! Arrrgh!',
   'home.welcome.body': `
     Il <b>Gestionale per Nuove Istituzioni</b><br />
     Connette <b>persone, idee, progetti e competenze</b><br />
@@ -62,12 +62,12 @@ export const LANG_IT_VALUES = {
   'card.activity.skills': 'Competenze',
   'card.activity.type': 'Tipologia',
 
-  'profile.title': '{{user}} - La Scuola Open Source',
-  'profile.title.me': 'Il mio profilo - La Scuola Open Source',
+  'profile.title': '{{user}} - Open Design School',
+  'profile.title.me': 'Il mio profilo - Open Design School',
   'profile.edit.firstName': 'Nome',
   'profile.edit.lastName': 'Cognome',
-  'profile.edit.title': 'La tua qualifica',
-  'profile.edit.bio': 'La tua bio',
+  'profile.edit.title': 'Che competenze hai?',
+  'profile.edit.bio': 'Descrivi quello che fai',
   'profile.edit.skills': 'making, coding, design...',
   'profile.edit.telephone': '+39 123456789',
   'profile.edit.email': 'user@email.com',
@@ -95,8 +95,8 @@ export const LANG_IT_VALUES = {
   'profile.reservations.totalPrice': 'Costo totale',
 
 
-  'bazaar.title': 'Bazaar delle Idee - La Scuola Open Source',
-  'bazaar.heading': `<strong>Bazaar</strong> delle <strong>idee</strong>`,
+  'bazaar.title': 'Idee - Open Design School',
+  'bazaar.heading': `<strong>idee</strong>`,
   'bazaar.subhead': 'Proponi, cerca, discuti un\'idea o un progetto.',
 
   'bazaar.filters.framework.teaching_framework': 'Didattica',
@@ -176,7 +176,7 @@ export const LANG_IT_VALUES = {
   'bazaar.removeFavorites': 'rimuovi dai preferiti',
   'bazaar.edit': 'modifica',
 
-  'bazaar.details.pageTitle': '{{title}} - Bazaar delle Idee - La Scuola Open Source',
+  'bazaar.details.pageTitle': '{{title}} - Idee - Open Design School',
   'bazaar.details.level': 'Livello:',
   'bazaar.details.topics': 'Tags:',
   'bazaar.details.score': 'Impatto:',
@@ -214,33 +214,33 @@ export const LANG_IT_VALUES = {
   'bazaar.interact.favorites': 'Preferito',
   'bazaar.interact.comments': 'Commenti',
 
-  'bazaar.propose.learn.title': 'Voglio imparare - La Scuola Open Source',
+  'bazaar.propose.learn.title': 'Voglio imparare - Open Design School',
   'bazaar.propose.learn.heading': `Voglio <strong>imparare</strong>`,
   'bazaar.propose.learn.subhead': `Raccontaci cosa desideri imparare!`,
 
-  'bazaar.propose.teach.title': 'Voglio insegnare - La Scuola Open Source',
+  'bazaar.propose.teach.title': 'Voglio insegnare - Open Design School',
   'bazaar.propose.teach.heading': `Voglio <strong>insegnare</strong>`,
-  'bazaar.propose.teach.subhead': `Raccontaci la tua idea!`,
+  'bazaar.propose.teach.subhead': `Raccontaci il corso che vuoi proporre!`,
 
-  'bazaar.propose.event.title': 'Proponi un evento - La Scuola Open Source',
+  'bazaar.propose.event.title': 'Proponi un evento - Open Design School',
   'bazaar.propose.event.heading': `<strong>Intrattenimento</strong>`,
   'bazaar.propose.event.subhead': `Raccontaci cosa hai in mente!`,
 
-  'bazaar.propose.research.title': 'Progetto di ricerca - La Scuola Open Source',
+  'bazaar.propose.research.title': 'Progetto di ricerca - Open Design School',
   'bazaar.propose.research.heading': `Progetto di <strong>ricerca</strong>`,
   'bazaar.propose.research.subhead': `Raccontaci la tua idea!`,
 
   'bazaar.propose.saved.title': `Abbiamo ricevuto <strong>la tua proposta</strong>`,
-  'bazaar.propose.saved.subtitle': `Puoi trovarla nel Bazaar delle idee`,
+  'bazaar.propose.saved.subtitle': `Puoi trovarla nella sezione <strong>IDEE</strong>`,
   'bazaar.propose.saved.bazaar': `
-    <i class="sos-icon comment text-white"></i> Vai al bazaar
+    <i class="sos-icon comment text-white"></i> Vai alla sezione idee
   `,
   'bazaar.propose.saved.edit': `
     <i class="sos-icon edit text-white"></i> Modifica la tua idea
   `,
 
   'bazaar.propose.title': 'Titolo dell\'attività',
-  'bazaar.propose.locationSOS': 'L\'attività si svolge alla SOS',
+  'bazaar.propose.locationSOS': 'L\'attività si svolge alla Open Design School',
   'bazaar.propose.locationCustom': 'L\'attività si svolge altrove',
   'bazaar.propose.activityType': 'In quali ambiti rientra l\'attività proposta?',
   'bazaar.propose.frameworks': 'Tipologia di attività',
@@ -367,7 +367,7 @@ export const LANG_IT_VALUES = {
   'activities.activityTypes.event.workshop': 'Workshop / Seminario',
   'activities.activityTypes.event.performance': 'Performance',
 
-  'activities.title': 'Attività - La Scuola Open Source',
+  'activities.title': 'Attività - Open Design School',
   'activities.heading': `<strong>Attività</strong> in programma`,
   'activities.none': 'Nessun attività in programma',
 
@@ -394,19 +394,19 @@ export const LANG_IT_VALUES = {
   'activities.research.topics': 'tags:',
   'activities.research.owner': 'resp.:',
 
-  'activities.teachPage.title': 'Didattica - La Scuola Open Source',
+  'activities.teachPage.title': 'Didattica - Open Design School',
   'activities.teachPage.heading': 'Didattica',
   'activities.teachPage.subhead': `
     <i class="sos-icon right-arrow"></i> Tutte le attività <i class="sos-icon left-arrow"></i>
   `,
 
-  'activities.eventPage.title': 'Eventi - La Scuola Open Source',
+  'activities.eventPage.title': 'Eventi - Open Design School',
   'activities.eventPage.heading': 'Eventi',
   'activities.eventPage.subhead': `
     <i class="sos-icon right-arrow"></i> Tutte le attività <i class="sos-icon left-arrow"></i>
   `,
 
-  'activities.researchPage.title': 'Progetti - La Scuola Open Source',
+  'activities.researchPage.title': 'Progetti - Open Design School',
   'activities.researchPage.heading': 'Progetti',
   'activities.researchPage.subhead': `
     <i class="sos-icon right-arrow"></i> Tutte le attività <i class="sos-icon left-arrow"></i>
@@ -415,7 +415,7 @@ export const LANG_IT_VALUES = {
   'activity.favorite.add': 'Salva preferito',
   'activity.favorite.remove': 'È tra i preferiti',
 
-  'activity.teachEvent.title': '{{title}} - La Scuola Open Source',
+  'activity.teachEvent.title': '{{title}} - Open Design School',
   'activity.teachEvent.activityType': 'Tipologia di attività:',
   'activity.teachEvent.topics': 'tags:',
   'activity.teachEvent.requiredSkills': 'competenze richieste:',
@@ -469,7 +469,7 @@ export const LANG_IT_VALUES = {
   'activity.event.contact.subject': 'Contatta staff - {{title}}',
 
 
-  'activity.research.title': '{{title}} - La Scuola Open Source',
+  'activity.research.title': '{{title}} - Open Design School',
   'activity.research.deadline': 'Deadline candidature:',
   'activity.research.projectLink': 'Repository del progetto:',
   'activity.research.projectLink.value': 'Link al progetto',
@@ -496,8 +496,8 @@ export const LANG_IT_VALUES = {
   'paymentMethods.wire_transfer': 'Bonifico',
 
 
-  'fablab.title': 'FabLab - La Scuola Open Source',
-  'fablab.heading': 'Macchinari',
+  'fablab.title': 'FabLab - Open Design School',
+  'fablab.heading': 'Macchinari/Spazi',
 
   'fablab.machine': 'Macchinario:',
   'fablab.machine.workArea': 'Area di lavoro',
