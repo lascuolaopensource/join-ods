@@ -1,12 +1,12 @@
 export const LANG_EN_VALUES = {
   'nav.home': 'Home',
-  'nav.profile': 'My profile',
-  'nav.favorites': 'My favorites',
-  'nav.bazaar': 'Ideas bazaar',
+  'nav.profile': 'Profile',
+  'nav.favorites': 'Favorites',
+  'nav.bazaar': 'Ideas',
   'nav.activities': 'Activities (workshops, events, projects)',
   'nav.membership': 'Membership',
   'nav.propose': 'Submit an idea',
-  'nav.fablab': 'Fablab',
+  'nav.fablab': 'Fablab/Space',
   'nav.it': 'Italian',
   'nav.en': 'English',
   'nav.rules': 'Rules',
@@ -16,27 +16,27 @@ export const LANG_EN_VALUES = {
   'loading.load': 'Loading...',
   'loading.login': 'Login',
 
-  'errorPage.title': 'Error - La Scuola Open Source',
+  'errorPage.title': 'Error - Open Design School',
   'errorPage.text': 'ERROR {{code}}',
 
-  'favorites.title': 'Your favorites - La Scuola Open Source',
+  'favorites.title': 'Favorites - Open Design School',
   'favorites.heading': `Your <strong>favorites</strong>`,
   'favorites.users': 'People',
   'favorites.ideas': 'Ideas and projects',
   'favorites.activities': 'Activities',
 
-  'home.title': 'La Scuola Open Source',
+  'home.title': 'Open Design School',
 
-  'home.welcome.title': 'Benvenuto a bordo!',
+  'home.welcome.title': 'Welcome on board!',
   'home.welcome.body': `
     Il <b>Gestionale per Nuove Istituzioni</b><br />
-    Connette <b>persone, idee, progetti e competenze</b><br />
-    per generare <b>nuove possibilità</b>.
+    Connette <b>People, Ideas, Projects and Skills</b><br />
+    to generate <b>new possibilities</b>.
   `,
 
   'home.complete.profile.txt': 'Completa la tua registrazione:',
-  'home.complete.profile.btn.profile': `<i class="sos-icon edit"></i> Completa il tuo profilo`,
-  'home.complete.profile.btn.member': `<i class="sos-icon edit"></i> Scopri i piani di membership`,
+  'home.complete.profile.btn.profile': `<i class="sos-icon edit"></i> Fullfill your profile`,
+  'home.complete.profile.btn.member': `<i class="sos-icon edit"></i> Discover membership plans`,
 
   'home.search.value': `<b>People</b> / <b>Ideas</b> / <b>Activities</b>`,
   'home.search.skills': `<b>Skills</b>`,
@@ -62,8 +62,8 @@ export const LANG_EN_VALUES = {
   'card.activity.skills': 'Skills',
   'card.activity.type': 'Type',
 
-  'profile.title': '{{user}} - La Scuola Open Source',
-  'profile.title.me': 'My profile - La Scuola Open Source',
+  'profile.title': '{{user}} - Open design Scholl',
+  'profile.title.me': 'My profile - Open design Scholl',
   'profile.edit.firstName': 'First name',
   'profile.edit.lastName': 'Last name',
   'profile.edit.title': 'Your role',
@@ -95,7 +95,7 @@ export const LANG_EN_VALUES = {
   'profile.reservations.totalPrice': 'Total price',
 
 
-  'bazaar.title': 'Ideas bazaar - La Scuola Open Source',
+  'bazaar.title': 'Ideas bazaar - Open design Scholl',
   'bazaar.heading': `<strong>Ideas</strong> <strong>bazaar</strong>`,
   'bazaar.subhead': 'Submit, search, discuss an idea or a project',
 
@@ -176,7 +176,7 @@ export const LANG_EN_VALUES = {
   'bazaar.removeFavorites': 'remove from favorites',
   'bazaar.edit': 'modify',
 
-  'bazaar.details.pageTitle': '{{title}} - Ideas Bazaar - La Scuola Open Source',
+  'bazaar.details.pageTitle': '{{title}} - Ideas - Open design School',
   'bazaar.details.level': 'Level:',
   'bazaar.details.topics': 'Tags:',
   'bazaar.details.score': 'Impact:',
@@ -214,33 +214,33 @@ export const LANG_EN_VALUES = {
   'bazaar.interact.favorites': 'Favorite',
   'bazaar.interact.comments': 'Comments',
 
-  'bazaar.propose.learn.title': 'I\'d like to learn - La Scuola Open Source',
+  'bazaar.propose.learn.title': 'I\'d like to learn - Open design School',
   'bazaar.propose.learn.heading': `I want to <strong>learn</strong>`,
   'bazaar.propose.learn.subhead': `Tell us what you'd like to learn!`,
 
-  'bazaar.propose.teach.title': 'I\'d like to teach - La Scuola Open Source',
+  'bazaar.propose.teach.title': 'I\'d like to teach - Open design School',
   'bazaar.propose.teach.heading': `I want to <strong>teach</strong>`,
   'bazaar.propose.teach.subhead': `Tell us what you'd like to teach!`,
 
-  'bazaar.propose.event.title': 'Propose an event - La Scuola Open Source',
+  'bazaar.propose.event.title': 'Propose an event - Open design School',
   'bazaar.propose.event.heading': `<strong>Entertainment</strong>`,
   'bazaar.propose.event.subhead': `Tell us your idea!`,
 
-  'bazaar.propose.research.title': 'Research Project - La Scuola Open Source',
+  'bazaar.propose.research.title': 'Research Project - Open design School',
   'bazaar.propose.research.heading': `<strong>Research</strong>project`,
   'bazaar.propose.research.subhead': `Tell us your idea!`,
 
   'bazaar.propose.saved.title': `We received <strong>your idea</strong>`,
   'bazaar.propose.saved.subtitle': `You will find it in the Ideas Bazaar`,
   'bazaar.propose.saved.bazaar': `
-    <i class="sos-icon comment text-white"></i> Go to the bazaar
+    <i class="sos-icon comment text-white"></i> Go to the Ideas
   `,
   'bazaar.propose.saved.edit': `
-    <i class="sos-icon edit text-white"></i> Modify your idea
+    <i class="sos-icon edit text-white"></i> Modify your Ideas
   `,
 
   'bazaar.propose.title': 'Activity Title',
-  'bazaar.propose.locationSOS': 'The activity is kept at SOS',
+  'bazaar.propose.locationSOS': 'The activity is kept at Open Design School',
   'bazaar.propose.locationCustom': 'The activity is kept elsewhere',
   'bazaar.propose.activityType': 'What\'s the area of interest?',
   'bazaar.propose.frameworks': 'Type of activity',
@@ -321,7 +321,7 @@ export const LANG_EN_VALUES = {
   'bazaar.comments.error': 'Comment not saved correctly...',
   'bazaar.comments.send': 'Enter',
 
-  'membership.title': 'Your SOS membership - La Scuola Open Source',
+  'membership.title': 'Your membership - Open Design School',
   'membership.heading': 'Membership',
   'membership.type': 'Type',
   'membership.requestNew': 'ACTIVE',
@@ -366,7 +366,7 @@ export const LANG_EN_VALUES = {
   'activities.activityTypes.event.workshop': 'Workshop / Seminar',
   'activities.activityTypes.event.performance': 'Performance',
 
-  'activities.title': 'Activity - La Scuola Open Source',
+  'activities.title': 'Activity - Open Design School',
   'activities.heading': `<strong>Activity</strong> schedule`,
   'activities.none': 'No activity schedule',
 
@@ -393,19 +393,19 @@ export const LANG_EN_VALUES = {
   'activities.research.topics': 'tags:',
   'activities.research.owner': 'project manager:',
 
-  'activities.teachPage.title': 'Teaching - La Scuola Open Source',
+  'activities.teachPage.title': 'Teaching - Open Design School',
   'activities.teachPage.heading': 'Teaching',
   'activities.teachPage.subhead': `
     <i class="sos-icon right-arrow"></i> All activities <i class="sos-icon left-arrow"></i>
   `,
 
-  'activities.eventPage.title': 'Events - La Scuola Open Source',
+  'activities.eventPage.title': 'Events - Open Design School',
   'activities.eventPage.heading': 'Events',
   'activities.eventPage.subhead': `
     <i class="sos-icon right-arrow"></i> All activities <i class="sos-icon left-arrow"></i>
   `,
 
-  'activities.researchPage.title': 'Projects - La Scuola Open Source',
+  'activities.researchPage.title': 'Projects - Open Design School',
   'activities.researchPage.heading': 'Projects',
   'activities.researchPage.subhead': `
     <i class="sos-icon right-arrow"></i> All activities <i class="sos-icon left-arrow"></i>
@@ -414,7 +414,7 @@ export const LANG_EN_VALUES = {
   'activity.favorite.add': 'Save favorite',
   'activity.favorite.remove': 'It\'s on your favorites',
 
-  'activity.teachEvent.title': '{{title}} - La Scuola Open Source',
+  'activity.teachEvent.title': '{{title}} - Open Design School',
   'activity.teachEvent.activityType': 'Activity type:',
   'activity.teachEvent.topics': 'tags:',
   'activity.teachEvent.requiredSkills': 'required skills:',
@@ -468,7 +468,7 @@ export const LANG_EN_VALUES = {
   'activity.event.contact.subject': 'Contact staff - {{title}}',
 
 
-  'activity.research.title': '{{title}} - La Scuola Open Source',
+  'activity.research.title': '{{title}} - Open Design School',
   'activity.research.deadline': 'Application Deadline:',
   'activity.research.projectLink': 'Project Repository:',
   'activity.research.projectLink.value': 'Link to project',
@@ -495,7 +495,7 @@ export const LANG_EN_VALUES = {
   'paymentMethods.wire_transfer': 'Bank transfer',
 
 
-  'fablab.title': 'FabLab - La Scuola Open Source',
+  'fablab.title': 'FabLab - Open Design School',
   'fablab.heading': 'Machines',
 
   'fablab.machine': 'Machine:',
