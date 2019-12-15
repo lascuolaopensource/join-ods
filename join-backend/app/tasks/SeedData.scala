@@ -42,7 +42,7 @@ object SeedData extends AppTask {
       email = email,
       emailConfirmed = true,
       loginInfo = Seq(),
-      title = Some("Dummy user @ La Scuola Open Source"),
+      title = Some("Dummy user @ Open Design School"),
       dummy = true)
 
     val loginInfo = LoginInfo(CredentialsProvider.ID, email)
