@@ -33,7 +33,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "jquery-tageditor": "^1.0.1",
-    "jquery-ui": "^1.12.1",
+    "jquery-ui": "^1.13.2",
     "lodash": "~4.17.4",
     "napa": "^3.0.0",
     "popper.js": "^1.14.0",
