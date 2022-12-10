@@ -29,7 +29,7 @@
     "@sos/sos-ui-shared": "git+https://github.com/lascuolaopensource/join-ui-shared.git",
     "bootstrap": "4.1.0",
     "core-js": "^2.4.1",
-    "express": "^4.15.2",
+    "express": "^4.17.3",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "jquery-tageditor": "^1.0.1",
